@@ -9,11 +9,13 @@ namespace RestEasyBooking.BusinessLayer
 {
     class GuestAccount
     {
+        private int ID;
         private double _totalBalance;
         private Collection<string> referenceNumbers;
 
-        public GuestAccount()
+        public GuestAccount(int id)
         {
+            ID = id;
             _totalBalance = 0;
             referenceNumbers = new Collection<string>();
         }

@@ -10,6 +10,7 @@ namespace RestEasyBooking.BusinessLayer
     class Guest
     {
         private int guestAccountNumber;
+        private int guestAccountID;
         private GuestAccount guestAccount;
         private string _name;
         private string _phoneNumber;
@@ -42,6 +43,16 @@ namespace RestEasyBooking.BusinessLayer
         public int GuestAccountNumber
         {
             get { return guestAccountNumber; }
+        }
+
+        public int GuestAccountID
+        {
+            get { return guestAccountID; }
+        }
+
+        public GuestAccount GuestAccount
+        {
+            set { guestAccount = value; }
         }
         #endregion
 

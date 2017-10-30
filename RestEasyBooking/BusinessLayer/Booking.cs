@@ -9,6 +9,7 @@ namespace RestEasyBooking.BusinessLayer
     class Booking
     {
         private int _id;
+        private int bookID;
         private DateTime startDate;
         private DateTime endDate;
         private string referenceNumber;
@@ -20,6 +21,11 @@ namespace RestEasyBooking.BusinessLayer
 
         #region Properties
         public int ID
+        {
+            get { return _id; }
+        }
+
+        public int BookID
         {
             get { return _id; }
         }
