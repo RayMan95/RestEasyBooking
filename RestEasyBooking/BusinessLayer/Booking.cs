@@ -8,13 +8,19 @@ namespace RestEasyBooking.BusinessLayer
 {
     class Booking
     {
+        private uint _id;
         private DateTime startDate;
         private DateTime endDate;
         private string referenceNumber;
-        private int roomID;
+        private uint roomID;
         private long guestAccountNumber;
 
         #region Properties
+        public uint ID
+        {
+            get { return _id; }
+        }
+
         public DateTime StartDate
         {
             get { return startDate; }
@@ -25,7 +31,7 @@ namespace RestEasyBooking.BusinessLayer
             get { return endDate; }
         }
 
-        public int RoomNumber
+        public uint RoomNumber
         {
             get { return roomID + 1; }
         }
@@ -42,8 +48,9 @@ namespace RestEasyBooking.BusinessLayer
         }
         #endregion
 
-        public Booking(DateTime start, DateTime end, int room_id, long guest_acc_num)
+        public Booking(uint id, DateTime start, DateTime end, uint room_id, long guest_acc_num)
         {
+            _id = id;
             startDate = start;
             endDate = end;
             roomID = room_id;
