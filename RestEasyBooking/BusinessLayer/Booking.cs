@@ -15,6 +15,9 @@ namespace RestEasyBooking.BusinessLayer
         private uint roomID;
         private long guestAccountNumber;
 
+        private double balance;
+        private bool paidDeposit;
+
         #region Properties
         public uint ID
         {
@@ -48,13 +51,29 @@ namespace RestEasyBooking.BusinessLayer
         }
         #endregion
 
-        public Booking(uint id, DateTime start, DateTime end, uint room_id, long guest_acc_num)
+        public Booking(uint id, DateTime start, DateTime end, uint room_id, long guest_acc_num, 
+            double cost)
         {
             _id = id;
             startDate = start;
             endDate = end;
             roomID = room_id;
             guestAccountNumber = guest_acc_num;
+
+            balance = cost;
+            paidDeposit = false;
+        }
+
+        public double Payment(double amount, bool deposit)
+        {
+            if (deposit)
+            {
+                paidDeposit = true; // assumes full payment
+                balance -= amount;
+            }
+            else balance -= amount;
+
+            return balance;
         }
     }
 }

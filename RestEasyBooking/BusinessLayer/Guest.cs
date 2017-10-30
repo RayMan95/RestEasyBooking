@@ -10,7 +10,7 @@ namespace RestEasyBooking.BusinessLayer
     class Guest
     {
         private long guestAccountNumber;
-        //private GuestAccount guestAccount;
+        private GuestAccount guestAccount;
         private string _name;
         private string _phoneNumber;
         private string _email;
@@ -87,9 +87,9 @@ namespace RestEasyBooking.BusinessLayer
             }
         }
 
-        //public double Payment(double amount, string ref_num, bool deposit)
-        //{
-        //    // TODO: after creating GuestAccount entity
-        //}
+        public double Payment(double amount, string ref_num)
+        {
+            return guestAccount.Payment(amount, ref_num);
+        }
     }
 }
