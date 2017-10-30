@@ -9,7 +9,7 @@ namespace RestEasyBooking.BusinessLayer
 {
     class Guest
     {
-        private long guestAccountNumber;
+        private int guestAccountNumber;
         private GuestAccount guestAccount;
         private string _name;
         private string _phoneNumber;
@@ -39,13 +39,13 @@ namespace RestEasyBooking.BusinessLayer
             get { return _address; }
         }
 
-        public long GuestAccountNumber
+        public int GuestAccountNumber
         {
             get { return guestAccountNumber; }
         }
         #endregion
 
-        public Guest(long accountNumber, string name, string phoneNum, string email, string address)
+        public Guest(int accountNumber, string name, string phoneNum, string email, string address)
         {
             guestAccountNumber = accountNumber;
             _name = name;
