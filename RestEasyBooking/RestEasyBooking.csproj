@@ -64,6 +64,9 @@
     <Compile Include="BusinessLayer\Guest.cs" />
     <Compile Include="BusinessLayer\GuestAccount.cs" />
     <Compile Include="BusinessLayer\Room.cs" />
+    <Compile Include="DatabaseLayer\BookingDB.cs" />
+    <Compile Include="DatabaseLayer\DB.cs" />
+    <Compile Include="DatabaseLayer\GuestDB.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RestEasyBookingDataSet.Designer.cs">
@@ -104,9 +107,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DatabaseLayer\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="RestEasyBooking.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
