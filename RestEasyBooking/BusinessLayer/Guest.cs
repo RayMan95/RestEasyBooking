@@ -7,10 +7,23 @@ using System.Threading.Tasks;
 
 namespace RestEasyBooking.BusinessLayer
 {
+
+    struct ReferenceNumber
+    {
+        public static int id = -1;
+        public int myid;
+        public string number;
+        public ReferenceNumber(int ID, string Number)
+        {
+            myid = ++ReferenceNumber.id;
+            number = Number;
+        }
+    }
+
     class Guest
     {
-        private int guestAccountNumber;
-        private int guestAccountID;
+        private string guestAccountNumber;
+        private int guestID;
         private GuestAccount guestAccount;
         private string _name;
         private string _phoneNumber;
@@ -40,14 +53,14 @@ namespace RestEasyBooking.BusinessLayer
             get { return _address; }
         }
 
-        public int GuestAccountNumber
+        public string GuestAccountNumber
         {
             get { return guestAccountNumber; }
         }
 
         public int GuestAccountID
         {
-            get { return guestAccountID; }
+            get { return guestID; }
         }
 
         public GuestAccount GuestAccount
@@ -56,8 +69,9 @@ namespace RestEasyBooking.BusinessLayer
         }
         #endregion
 
-        public Guest(int accountNumber, string name, string phoneNum, string email, string address)
+        public Guest(int guestid, string accountNumber, string name, string phoneNum, string email, string address)
         {
+            guestID = guestid;
             guestAccountNumber = accountNumber;
             _name = name;
             _phoneNumber = phoneNum;
