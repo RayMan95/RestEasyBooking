@@ -9,17 +9,20 @@ namespace RestEasyBooking.BusinessLayer
 {
     class GuestAccount
     {
-        private int ID;
         private string _guestAccountNumber;
         private double _totalBalance;
         private Collection<ReferenceNumber> referenceNumbers;
 
-        public GuestAccount(int id, string guestAccountNumber)
+        public GuestAccount(string guestAccountNumber, double amount)
         {
-            ID = id;
             _guestAccountNumber = guestAccountNumber;
-            _totalBalance = 0;
+            _totalBalance = amount;
             referenceNumbers = new Collection<ReferenceNumber>();
+        }
+
+        public void AddReferenceNumber(ReferenceNumber refNum)
+        {
+            referenceNumbers.Add(refNum);
         }
 
         public double Payment(double amount, string refNum)

@@ -10,12 +10,11 @@ namespace RestEasyBooking.BusinessLayer
 
     struct ReferenceNumber
     {
-        public static int id = -1;
         public int myid;
         public string number;
         public ReferenceNumber(int ID, string Number)
         {
-            myid = ++ReferenceNumber.id;
+            myid = ID;
             number = Number;
         }
     }
@@ -24,7 +23,7 @@ namespace RestEasyBooking.BusinessLayer
     {
         private string guestAccountNumber;
         private int guestID;
-        private GuestAccount guestAccount;
+        private GuestAccount _guestAccount;
         private string _name;
         private string _phoneNumber;
         private string _email;
@@ -63,9 +62,9 @@ namespace RestEasyBooking.BusinessLayer
             get { return guestID; }
         }
 
-        public GuestAccount GuestAccount
+        public GuestAccount guestAccount
         {
-            set { guestAccount = value; }
+            set { _guestAccount = value; }
         }
         #endregion
 
@@ -114,7 +113,7 @@ namespace RestEasyBooking.BusinessLayer
 
         public double Payment(double amount, string ref_num)
         {
-            return guestAccount.Payment(amount, ref_num);
+            return _guestAccount.Payment(amount, ref_num);
         }
     }
 }

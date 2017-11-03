@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestEasyBooking.DatabaseLayer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,6 +18,8 @@ namespace RestEasyBooking
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
+            GuestDB guestDB = new GuestDB();
+            Console.WriteLine("YES");
         }
     }
 }

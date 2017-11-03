@@ -138,12 +138,8 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RestEasyBooking.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="RestEasyBooking_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="RestEasyBooking.mdf" />
+    <Content Include="RestEasyBooking_log.ldf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Testing\" />

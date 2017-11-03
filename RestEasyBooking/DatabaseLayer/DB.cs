@@ -17,6 +17,18 @@ namespace RestEasyBooking.DatabaseLayer
         protected DataSet dsMain;
         protected SqlDataAdapter daMain;
 
+        //Data members
+        protected string tableGuest = "Guest";
+        protected string sqlLocalGuest = "SELECT * FROM Guest";
+        protected string tableGuestAccount = "GuestAccount";
+        protected string sqlLocalGuestAccount = "SELECT * FROM GuestAccount";
+        protected string tableRefNum = "ReferenceNumber";
+        protected string sqlLocalRefNum = "SELECT * FROM ReferenceNumber";
+        protected string tableBooking = "Booking";
+        protected string sqlLocalBooking = "SELECT * FROM ReferenceNumber";
+
+        protected ColumnAttributes columnAttributes;
+
         protected string aSQLstring;  // to be initialised later
         public enum DBOperation
         {
@@ -25,9 +37,36 @@ namespace RestEasyBooking.DatabaseLayer
             Delete = 2
         }
 
+        protected struct ColumnAttributes
+        {
+            public string ID, GuestID, BookID, StartDate, EndDate, ReferenceNumberId, RoomID, 
+                Balance, PaidDeposit, GuestAccountNumber, Name, Email, Phone,
+                Address, ReferenceNumber;
+
+            public void SetAttributes()
+            {
+                ID = "Id";
+                GuestID = "GuestId";
+                BookID = "BookId";
+                StartDate = "StartDate";
+                EndDate = "EndDate";
+                ReferenceNumberId = "ReferenceNumberId";
+                RoomID = "RoomID";
+                PaidDeposit = "PaidDeposit";
+                GuestAccountNumber = "GuestAccountNumber";
+                Name = "Name";
+                Email = "Email";
+                Phone = "Phone";
+                Address = "Address";
+                Balance = "Balance";
+                ReferenceNumber = "ReferenceNumber";
+            }
+        }
 
         public DB()
         {
+            columnAttributes.SetAttributes();
+
             try
             {
                 //Open a connection & create a new dataset object
@@ -40,6 +79,8 @@ namespace RestEasyBooking.DatabaseLayer
                 return;
             }
         }
+
+        protected virtual void PopulateCollections() { }
 
         public void FillDataSet(string aSQLstring, string aTable)
         {
