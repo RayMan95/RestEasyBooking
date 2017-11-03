@@ -25,7 +25,7 @@ namespace RestEasyBooking.DatabaseLayer
         protected string tableRefNum = "ReferenceNumber";
         protected string sqlLocalRefNum = "SELECT * FROM ReferenceNumber";
         protected string tableBooking = "Booking";
-        protected string sqlLocalBooking = "SELECT * FROM ReferenceNumber";
+        protected string sqlLocalBooking = "SELECT * FROM Booking";
 
         protected ColumnAttributes columnAttributes;
 

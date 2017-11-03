@@ -14,7 +14,7 @@ namespace RestEasyBooking.BusinessLayer
         private DateTime endDate;
         private string referenceNumber;
         private int roomID;
-        private long guestAccountNumber;
+        private string guestAccountNumber;
 
         private double balance;
         private bool paidDeposit;
@@ -48,17 +48,18 @@ namespace RestEasyBooking.BusinessLayer
         public string ReferenceNumber
         {
             get { return referenceNumber; }
+            set { referenceNumber = value; }
         }
 
-        public long GuestAccountNumber
+        public string GuestAccountNumber
         {
             get { return guestAccountNumber; }
             set { guestAccountNumber = value; }
         }
         #endregion
 
-        public Booking(int id, DateTime start, DateTime end, int room_id, long guest_acc_num, 
-            double cost)
+        public Booking(int id, DateTime start, DateTime end, int room_id, string guest_acc_num, 
+            double curr_balance, bool paidDep)
         {
             _id = id;
             startDate = start;
@@ -66,8 +67,8 @@ namespace RestEasyBooking.BusinessLayer
             roomID = room_id;
             guestAccountNumber = guest_acc_num;
 
-            balance = cost;
-            paidDeposit = false;
+            balance = curr_balance;
+            paidDeposit = paidDep;
         }
 
         public double Payment(double amount, bool deposit)

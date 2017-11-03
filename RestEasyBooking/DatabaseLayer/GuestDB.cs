@@ -61,6 +61,7 @@ namespace RestEasyBooking.DatabaseLayer
                     {
                         guestAccountNumber = Convert.ToString(myRow[columnAttributes.GuestAccountNumber]).TrimEnd();
                         double amount = 0;
+                        //double amount = Convert.ToInt32(dsMain.Tables[tableGuestAccount].Select(filterExpression: "Id=g1")[0].ItemArray[1]);
                         //READ from GuestAccount table
                         foreach (DataRow myRow_loopVariable2 in dsMain.Tables[tableGuestAccount].Rows)
                         {
@@ -93,6 +94,7 @@ namespace RestEasyBooking.DatabaseLayer
                                 {
                                     int refId = Convert.ToInt32(myRow[columnAttributes.ID]);
                                     string refNum = Convert.ToString(myRow[columnAttributes.ReferenceNumber]).TrimEnd();
+                                    // Add all reference numbers
                                     guestAcc.AddReferenceNumber(new ReferenceNumber(refId, refNum));
                                 }
                             }
