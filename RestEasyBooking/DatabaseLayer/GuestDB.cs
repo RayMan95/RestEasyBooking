@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RestEasyBooking.DatabaseLayer
 {
-    class GuestDB : DB
+    public class GuestDB : DB
     {
         private Collection<Guest> allGuests;
         //private Collection<GuestAccount> allGuestAccounts;

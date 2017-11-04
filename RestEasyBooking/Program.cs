@@ -26,6 +26,33 @@ namespace RestEasyBooking
             Collection<Booking> allBookings = bookingDB.AllBookings;
             Collection<Guest> allGuests = guestDB.AllGuests;
 
+            int bookingID = 3;
+            DateTime startDate = new DateTime(2017, 11, 30);
+            DateTime endDate = new DateTime(2017, 12, 2);
+            int roomID = 5;
+            double balance = 1000;
+            bool paidDeposit = true;
+            GuestDetails guestDetails = new GuestDetails()
+            {
+                ID = 1,
+                AccountNumber = "g1"
+            };
+
+            ReferenceNumberDetails referenceNumberDetails = new ReferenceNumberDetails()
+            {
+                ID = 1,
+                ReferenceNumber = "r1"
+            };
+
+            Booking booking = new Booking(bookingID, startDate, endDate, roomID, balance, paidDeposit)
+            {
+                GuestDetails = guestDetails,
+                ReferenceNumberDetails = referenceNumberDetails
+            };
+
+            //bookingDB.DataSetChange(booking, DB.DBOperation.Delete);
+            //bookingDB.UpdateDataSource();
+
             Console.WriteLine("YES");
         }
     }

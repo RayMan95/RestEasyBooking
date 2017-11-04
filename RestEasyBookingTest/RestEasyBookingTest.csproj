@@ -52,6 +52,8 @@
     <Compile Include="BusinessLayer\GuestAccountTests.cs" />
     <Compile Include="BusinessLayer\GuestTests.cs" />
     <Compile Include="BusinessLayer\RoomTests.cs" />
+    <Compile Include="DatabaseLayer\BookingDBTests.cs" />
+    <Compile Include="DatabaseLayer\GuestDBTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

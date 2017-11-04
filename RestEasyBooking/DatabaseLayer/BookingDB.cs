@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace RestEasyBooking.DatabaseLayer
 {
-    class BookingDB : DB
+    public class BookingDB : DB
     {
         private Collection<Booking> allBookings;
         private Collection<Guest> allGuests;
@@ -65,11 +65,12 @@ namespace RestEasyBooking.DatabaseLayer
                     bool paidDeposit = Convert.ToBoolean(myRow[columnAttributes.PaidDeposit]);
 
                     // Query Guest table for GuestAccountNumber
-                    string guestAccountNumber = Convert.ToString(dsMain.Tables[tableGuest].Select(filterExpression: "Id=" + id)[0].ItemArray[1]).TrimEnd();
+                    // assumes guest already exists
+                    string guestAccountNumber = Convert.ToString(FindFromTableByPrimaryKey(tableGuest, guestid)[1]).TrimEnd();
 
                     // Query ReferenceNumber table for ReferenceNumber
                     // assumes ref number was already added 
-                    string refNumber = Convert.ToString(dsMain.Tables[tableRefNum].Select(filterExpression: "Id=" + refNumId)[0].ItemArray[2]).TrimEnd();
+                    string refNumber = Convert.ToString(FindFromTableByPrimaryKey(tableRefNum, refNumId)[2]).TrimEnd();
 
                     // Structs
                     GuestDetails guestDetails = new GuestDetails()
@@ -97,7 +98,7 @@ namespace RestEasyBooking.DatabaseLayer
         }
 
         #region Database Operations CRUD --- Add the object's values to the database
-        public void DataSetChange(Booking booking, DB.DBOperation operation)
+        public bool DataSetChange(Booking booking, DB.DBOperation operation)
         {
             DataRow aRow = null;
             switch (operation)
@@ -108,78 +109,153 @@ namespace RestEasyBooking.DatabaseLayer
                     //Add to the dataset
                     dsMain.Tables[tableBooking].Rows.Add(aRow);
                     break;
+
+                case DBOperation.Edit:
+                    aRow = FindFromTableByPrimaryKey(tableBooking, booking.ID);
+                    if (aRow == null) return false;
+                    else FillRow(aRow, booking, operation);
+                    break;
+
+                case DBOperation.Delete:
+                    aRow = FindFromTableByPrimaryKey(tableBooking, booking.ID);
+                    if (aRow == null) return false;
+                    aRow.Delete();
+                    break;
             }
+
+            return true;
         }
         #endregion
 
         #region Build Parameters, Create Commands & Update database
-        private void Build_INSERT_Parameters()
+        private void BuildParameters(DBOperation operation)
         {
             //Create Parameters to communicate with SQL INSERT
-            SqlParameter param = default(SqlParameter);
-            param = new SqlParameter("@ID", SqlDbType.Int, 4, columnAttributes.ID);
-            daMain.InsertCommand.Parameters.Add(param);
+            SqlParameter idParam = new SqlParameter("@ID", SqlDbType.Int, 4, columnAttributes.ID);
+            switch (operation)
+            {
+                case DBOperation.Add:
+                    daMain.InsertCommand.Parameters.Add(idParam);
+                    break;
+                case DBOperation.Edit:
+                    daMain.UpdateCommand.Parameters.Add(idParam);
+                    break;
+                case DBOperation.Delete:
+                    daMain.DeleteCommand.Parameters.Add(idParam);
+                    break;
+            }
+            
 
-            param = new SqlParameter("@GUESTID", SqlDbType.Int, 4, columnAttributes.GuestID);
-            daMain.InsertCommand.Parameters.Add(param);
+            if (operation != DBOperation.Delete)
+            {
+                if (operation != DBOperation.Edit)
+                {
+                    //exclude GuestID(which should/must not change)
+                    idParam = new SqlParameter("@GUESTID", SqlDbType.Int, 4, columnAttributes.GuestID);
+                    daMain.InsertCommand.Parameters.Add(idParam);
+                }
 
-            param = new SqlParameter("@STARTDATE", SqlDbType.DateTime, 8, columnAttributes.StartDate);
-            daMain.InsertCommand.Parameters.Add(param);
+                SqlParameter startDateParam = new SqlParameter("@STARTDATE", SqlDbType.DateTime, 8, columnAttributes.StartDate);
+                SqlParameter enDateParam = new SqlParameter("@ENDDATE", SqlDbType.DateTime, 8, columnAttributes.EndDate);
+                SqlParameter refnumIdParam = new SqlParameter("@REFERENCENUMBERID", SqlDbType.Int, 4, columnAttributes.ReferenceNumberId);
+                SqlParameter roomIdParam = new SqlParameter("@ROOMID", SqlDbType.Int, 4, columnAttributes.RoomID);
+                SqlParameter balanceParam = new SqlParameter("@BALANCE", SqlDbType.Float, 8, columnAttributes.Balance);
+                SqlParameter paidDepositparam = new SqlParameter("@PAIDDEPOSIT", SqlDbType.Bit, 1, columnAttributes.PaidDeposit);
 
-            param = new SqlParameter("@ENDDATE", SqlDbType.DateTime, 8, columnAttributes.EndDate);
-            daMain.InsertCommand.Parameters.Add(param);
+                switch (operation)
+                {
+                    case DBOperation.Add:
+                        daMain.InsertCommand.Parameters.Add(startDateParam);
+                        daMain.InsertCommand.Parameters.Add(enDateParam);
+                        daMain.InsertCommand.Parameters.Add(refnumIdParam);
+                        daMain.InsertCommand.Parameters.Add(roomIdParam);
+                        daMain.InsertCommand.Parameters.Add(balanceParam);
+                        daMain.InsertCommand.Parameters.Add(paidDepositparam);
+                        break;
 
-            param = new SqlParameter("@REFERENCENUMBERID", SqlDbType.Int, 4, columnAttributes.ReferenceNumberId);
-            daMain.InsertCommand.Parameters.Add(param);
+                    case DBOperation.Edit:
+                        daMain.UpdateCommand.Parameters.Add(startDateParam);
+                        daMain.UpdateCommand.Parameters.Add(enDateParam);
+                        daMain.UpdateCommand.Parameters.Add(refnumIdParam);
+                        daMain.UpdateCommand.Parameters.Add(roomIdParam);
+                        daMain.UpdateCommand.Parameters.Add(balanceParam);
+                        daMain.UpdateCommand.Parameters.Add(paidDepositparam);
+                        break;
+                }
+            }
+        }
 
-            param = new SqlParameter("@ROOMID", SqlDbType.Int, 4, columnAttributes.RoomID);
-            daMain.InsertCommand.Parameters.Add(param);
+        private string CreateCommand(DBOperation operation)
+        {
+            switch (operation)
+            {
+                case DBOperation.Add:
+                    daMain.InsertCommand = new SqlCommand("INSERT into " + tableBooking +
+                        " (" + columnAttributes.ID + ", " +
+                        columnAttributes.GuestID + ", " +
+                        columnAttributes.StartDate + ", " +
+                        columnAttributes.EndDate + ", " +
+                        columnAttributes.ReferenceNumberId + ", " +
+                        columnAttributes.RoomID + ", " +
+                        columnAttributes.Balance + ", " +
+                        columnAttributes.PaidDeposit + ")" +
+                        " VALUES (@ID, @GUESTID, @STARTDATE, @ENDDATE, @REFERENCENUMBERID, @ROOMID, @BALANCE, @PAIDDEPOSIT)", 
+                        cnMain);
+                    break;
 
-            param = new SqlParameter("@BALANCE", SqlDbType.Float, 8, columnAttributes.Balance);
-            daMain.InsertCommand.Parameters.Add(param);
+                case DBOperation.Edit:
+                    daMain.UpdateCommand = new SqlCommand("UPDATE " + tableBooking + 
+                        " SET " +
+                        columnAttributes.StartDate + " =@STARTDATE, " +
+                        columnAttributes.EndDate + " =@ENDDATE, " +
+                        columnAttributes.ReferenceNumberId + " =@REFERENCENUMBERID, " +
+                        columnAttributes.RoomID + " =@ROOMID, " +
+                        columnAttributes.Balance + " =@BALANCE, " +
+                        columnAttributes.PaidDeposit + " =@PAIDDEPOSIT " +
+                        "WHERE " +
+                        columnAttributes.ID + "=@ID",
+                        cnMain);
+                    break;
 
-            param = new SqlParameter("@PAIDDEPOSIT", SqlDbType.Bit, 1, columnAttributes.PaidDeposit);
-            daMain.InsertCommand.Parameters.Add(param);
+                case DBOperation.Delete:
+                    daMain.DeleteCommand = new SqlCommand("DELETE FROM " + tableBooking +
+                        " WHERE " + columnAttributes.ID + "=@ID", cnMain); 
+                    break;
+            }
+            string errorstring = "";
+            try
+            {
+                BuildParameters(operation);
+            }
+            catch(Exception exception)
+            {
+                errorstring = exception.Message + " " + exception.StackTrace;
+            }
+
+            return errorstring;
         }
 
         private void FillRow(DataRow aRow, Booking booking, DB.DBOperation operation)
         {
-            if (operation == DB.DBOperation.Add)
-            {
-                //NOTE square brackets to indicate index of collections of fields in row.
-                aRow[columnAttributes.ID] = booking.ID;
-                aRow[columnAttributes.GuestID] = booking.GuestDetails.ID;
-                aRow[columnAttributes.StartDate] = booking.StartDate;
-                aRow[columnAttributes.EndDate] = booking.EndDate;
-                aRow[columnAttributes.ReferenceNumberId] = booking.ReferenceNumberDetails.ID;
-                aRow[columnAttributes.RoomID] = booking.RoomID;
-                aRow[columnAttributes.Balance] = booking.Balance;
-                aRow[columnAttributes.PaidDeposit] = booking.PaidDeposit;
-            }
-        }
-
-        private void Create_INSERT_Command()
-        {
-            daMain.InsertCommand = new SqlCommand("INSERT into " + tableBooking +
-                "(" + columnAttributes.ID + ", " +
-                columnAttributes.GuestID + ", " +
-                columnAttributes.StartDate + ", " +
-                columnAttributes.EndDate + ", " +
-                columnAttributes.ReferenceNumberId + ", " +
-                columnAttributes.RoomID + ", " +
-                columnAttributes.Balance + ", " +
-                columnAttributes.PaidDeposit + ")" +
-                " VALUES (@ID, @GUESTID, @STARTDATE, @ENDDATE, @REFERENCENUMBERID, @ROOMID, @BALANCE, @PAIDDEPOSIT)", cnMain);
-
-            Build_INSERT_Parameters();
-        }
+            //NOTE square brackets to indicate index of collections of fields in row.
+            aRow[columnAttributes.ID] = booking.ID;
+            aRow[columnAttributes.GuestID] = booking.GuestDetails.ID;
+            aRow[columnAttributes.StartDate] = booking.StartDate;
+            aRow[columnAttributes.EndDate] = booking.EndDate;
+            aRow[columnAttributes.ReferenceNumberId] = booking.ReferenceNumberDetails.ID;
+            aRow[columnAttributes.RoomID] = booking.RoomID;
+            aRow[columnAttributes.Balance] = booking.Balance;
+            aRow[columnAttributes.PaidDeposit] = booking.PaidDeposit;
+        } 
 
         public bool UpdateDataSource()
         {
-            bool success = true;
-            Create_INSERT_Command();
+            //bool success = true;
+            CreateCommand(DBOperation.Add);
+            CreateCommand(DBOperation.Edit);
+            CreateCommand(DBOperation.Delete);
             return UpdateDataSource(sqlLocalBooking, tableBooking);
         }
-            #endregion
-        }
+        #endregion
+    }
 }

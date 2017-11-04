@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace RestEasyBooking.DatabaseLayer
 {
-    class DB
+    public class DB
     {
         private string strConn = Settings.Default.RestEasyBookingConnectionString;
         protected SqlConnection cnMain;
@@ -123,6 +123,15 @@ namespace RestEasyBooking.DatabaseLayer
             {
             }
             return success;
+        }
+
+        protected DataRow FindFromTableByPrimaryKey(string table, int id)
+        {
+            // Has to be primary key to return unique DataRow
+            DataRow[] dataRows = dsMain.Tables[table].Select(filterExpression: "Id=" + id);
+            if (dataRows.Length > 0)
+                return dataRows[0];
+            else return null;
         }
     }
 }
