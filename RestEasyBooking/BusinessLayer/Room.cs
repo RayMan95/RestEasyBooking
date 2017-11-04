@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace RestEasyBooking.BusinessLayer
 {
-    class Room
+    public class Room
     {
         public enum Season
         {
@@ -22,13 +22,24 @@ namespace RestEasyBooking.BusinessLayer
         public Season season
         {
             get { return _season; }
-            set { _season = value; }
+            //set { _season = value; }
+        }
+
+        public bool Occupied
+        {
+            get { return occupied; }
         }
         #endregion
 
-        public Room()
+        public Room(Season season)
         {
             occupied = false;
+            _season = season;
+        }
+
+        public void Occupy()
+        {
+            occupied = true;
         }
 
         public int GetPrice()

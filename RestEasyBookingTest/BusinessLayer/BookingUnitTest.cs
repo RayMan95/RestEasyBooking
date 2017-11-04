@@ -1,14 +1,18 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestEasyBooking.BusinessLayer;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace RestEasyBookingTest
+namespace RestEasyBooking.BusinessLayer.Tests
 {
-    [TestClass]
+    [TestClass()]
     public class BookingUnitTest
     {
-        [TestMethod]
-        public void TestCreationAndProperties()
+        [TestMethod()]
+        public void BookingTest()
         {
             // Details
             int bookingID = 3;
@@ -26,6 +30,12 @@ namespace RestEasyBookingTest
             Assert.AreEqual(booking.RoomID, roomID);
             Assert.AreEqual(booking.Balance, balance);
             Assert.AreEqual(booking.PaidDeposit, paidDeposit);
+    }
+
+        [TestMethod()]
+        public void PaymentTest()
+        {
+            Assert.Fail();
         }
     }
 }

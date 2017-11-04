@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace RestEasyBooking.BusinessLayer
 {
 
-    class Guest
+    public class Guest
     {
         private string guestAccountNumber;
         private int guestID;

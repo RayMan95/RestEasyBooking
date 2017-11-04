@@ -87,7 +87,7 @@ namespace RestEasyBooking.DatabaseLayer
                     // Create booking instance
                     booking = new Booking(id, new DateTime(), new DateTime(), roomId, balance, paidDeposit)
                     {
-                        referenceNumberDetails = referenceNumberDetails,
+                        ReferenceNumberDetails = referenceNumberDetails,
                         GuestDetails = guestDetails
                     };
 
@@ -151,7 +151,7 @@ namespace RestEasyBooking.DatabaseLayer
                 aRow[columnAttributes.GuestID] = booking.GuestDetails.ID;
                 aRow[columnAttributes.StartDate] = booking.StartDate;
                 aRow[columnAttributes.EndDate] = booking.EndDate;
-                aRow[columnAttributes.ReferenceNumberId] = booking.referenceNumberDetails.ID;
+                aRow[columnAttributes.ReferenceNumberId] = booking.ReferenceNumberDetails.ID;
                 aRow[columnAttributes.RoomID] = booking.RoomID;
                 aRow[columnAttributes.Balance] = booking.Balance;
                 aRow[columnAttributes.PaidDeposit] = booking.PaidDeposit;

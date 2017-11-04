@@ -63,10 +63,10 @@ namespace RestEasyBooking.BusinessLayer
             get { return paidDeposit; }
         }
 
-        public ReferenceNumberDetails referenceNumberDetails
+        public ReferenceNumberDetails ReferenceNumberDetails
         {
-            get { return referenceNumberDetails; }
-            set { referenceNumberDetails = value; }
+            get { return _referenceNumberDetails; }
+            set { _referenceNumberDetails = value; }
         }
 
         public GuestDetails GuestDetails
