@@ -6,26 +6,34 @@ using System.Threading.Tasks;
 
 namespace RestEasyBooking.BusinessLayer
 {
-    class Booking
+    #region
+    public struct GuestDetails
+    {
+        public int ID;
+        public string AccountNumber;
+    }
+
+    public struct ReferenceNumberDetails
+    {
+        public int ID;
+        public string ReferenceNumber;
+    }
+    #endregion
+
+    public class Booking
     {
         private int _id;
-        private int bookID;
         private DateTime startDate;
         private DateTime endDate;
-        private string referenceNumber;
+        private GuestDetails guestDetails;
+        private ReferenceNumberDetails _referenceNumberDetails;
         private int roomID;
-        private string guestAccountNumber;
 
         private double balance;
         private bool paidDeposit;
 
         #region Properties
         public int ID
-        {
-            get { return _id; }
-        }
-
-        public int BookID
         {
             get { return _id; }
         }
@@ -40,32 +48,41 @@ namespace RestEasyBooking.BusinessLayer
             get { return endDate; }
         }
 
-        public int RoomNumber
+        public int RoomID
         {
-            get { return roomID + 1; }
+            get { return roomID; }
         }
 
-        public string ReferenceNumber
+        public double Balance
         {
-            get { return referenceNumber; }
-            set { referenceNumber = value; }
+            get { return balance; }
         }
 
-        public string GuestAccountNumber
+        public bool PaidDeposit
         {
-            get { return guestAccountNumber; }
-            set { guestAccountNumber = value; }
+            get { return paidDeposit; }
+        }
+
+        public ReferenceNumberDetails referenceNumberDetails
+        {
+            get { return referenceNumberDetails; }
+            set { referenceNumberDetails = value; }
+        }
+
+        public GuestDetails GuestDetails
+        {
+            get { return guestDetails; }
+            set { guestDetails = value; }
         }
         #endregion
 
-        public Booking(int id, DateTime start, DateTime end, int room_id, string guest_acc_num, 
+        public Booking(int id, DateTime start, DateTime end, int room_id,
             double curr_balance, bool paidDep)
         {
             _id = id;
             startDate = start;
             endDate = end;
             roomID = room_id;
-            guestAccountNumber = guest_acc_num;
 
             balance = curr_balance;
             paidDeposit = paidDep;

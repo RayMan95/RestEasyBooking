@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestEasyBooking", "RestEasyBooking\RestEasyBooking.csproj", "{0644F640-7AE5-48C5-ADD5-B5F55812281F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestEasyBookingTest", "RestEasyBookingTest\RestEasyBookingTest.csproj", "{6237436E-3919-4CB9-9593-88D10395CAC4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0644F640-7AE5-48C5-ADD5-B5F55812281F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0644F640-7AE5-48C5-ADD5-B5F55812281F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0644F640-7AE5-48C5-ADD5-B5F55812281F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6237436E-3919-4CB9-9593-88D10395CAC4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6237436E-3919-4CB9-9593-88D10395CAC4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6237436E-3919-4CB9-9593-88D10395CAC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6237436E-3919-4CB9-9593-88D10395CAC4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

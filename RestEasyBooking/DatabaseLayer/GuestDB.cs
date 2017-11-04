@@ -95,7 +95,7 @@ namespace RestEasyBooking.DatabaseLayer
                                     int refId = Convert.ToInt32(myRow[columnAttributes.ID]);
                                     string refNum = Convert.ToString(myRow[columnAttributes.ReferenceNumber]).TrimEnd();
                                     // Add all reference numbers
-                                    guestAcc.AddReferenceNumber(new ReferenceNumber(refId, refNum));
+                                    guestAcc.AddReferenceNumber(new ReferenceNumberDetails() { ID = refId, ReferenceNumber = refNum });
                                 }
                             }
                         }

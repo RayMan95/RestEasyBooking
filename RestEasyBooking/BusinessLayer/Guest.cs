@@ -8,17 +8,6 @@ using System.Threading.Tasks;
 namespace RestEasyBooking.BusinessLayer
 {
 
-    struct ReferenceNumber
-    {
-        public int myid;
-        public string number;
-        public ReferenceNumber(int ID, string Number)
-        {
-            myid = ID;
-            number = Number;
-        }
-    }
-
     class Guest
     {
         private string guestAccountNumber;

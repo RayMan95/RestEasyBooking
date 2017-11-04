@@ -11,23 +11,23 @@ namespace RestEasyBooking.BusinessLayer
     {
         private string _guestAccountNumber;
         private double _totalBalance;
-        private Collection<ReferenceNumber> referenceNumbers;
+        private Collection<ReferenceNumberDetails> referenceNumbers;
 
         public GuestAccount(string guestAccountNumber, double amount)
         {
             _guestAccountNumber = guestAccountNumber;
             _totalBalance = amount;
-            referenceNumbers = new Collection<ReferenceNumber>();
+            referenceNumbers = new Collection<ReferenceNumberDetails>();
         }
 
-        public void AddReferenceNumber(ReferenceNumber refNum)
+        public void AddReferenceNumber(ReferenceNumberDetails refNum)
         {
             referenceNumbers.Add(refNum);
         }
 
         public double Payment(double amount, string refNum)
         {
-            referenceNumbers.Add(new ReferenceNumber());
+            referenceNumbers.Add(new ReferenceNumberDetails());
             _totalBalance -= amount;
             return _totalBalance;
         }
