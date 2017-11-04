@@ -13,6 +13,18 @@ namespace RestEasyBooking.BusinessLayer
         private double _totalBalance;
         private Collection<ReferenceNumberDetails> referenceNumbers;
 
+        #region Properties
+        public string AccountNumber
+        {
+            get { return _guestAccountNumber; }
+        }
+
+        public double Balance
+        {
+            get { return _totalBalance; }
+        }
+        #endregion
+
         public GuestAccount(string guestAccountNumber, double amount)
         {
             _guestAccountNumber = guestAccountNumber;

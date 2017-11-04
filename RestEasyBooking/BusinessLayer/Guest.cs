@@ -10,7 +10,6 @@ namespace RestEasyBooking.BusinessLayer
 
     public class Guest
     {
-        private string guestAccountNumber;
         private int guestID;
         private GuestAccount _guestAccount;
         private string _name;
@@ -43,10 +42,15 @@ namespace RestEasyBooking.BusinessLayer
 
         public string GuestAccountNumber
         {
-            get { return guestAccountNumber; }
+            get { return _guestAccount.AccountNumber; }
         }
 
-        public int GuestAccountID
+        public double Balance
+        {
+            get { return _guestAccount.Balance; }
+        }
+
+        public int ID
         {
             get { return guestID; }
         }

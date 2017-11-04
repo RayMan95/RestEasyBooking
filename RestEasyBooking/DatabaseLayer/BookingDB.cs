@@ -238,8 +238,11 @@ namespace RestEasyBooking.DatabaseLayer
         private void FillRow(DataRow aRow, Booking booking, DB.DBOperation operation)
         {
             //NOTE square brackets to indicate index of collections of fields in row.
-            aRow[columnAttributes.ID] = booking.ID;
-            aRow[columnAttributes.GuestID] = booking.GuestDetails.ID;
+            if (operation == DB.DBOperation.Add)
+            {
+                aRow[columnAttributes.ID] = booking.ID;
+                aRow[columnAttributes.GuestID] = booking.GuestDetails.ID;
+            }
             aRow[columnAttributes.StartDate] = booking.StartDate;
             aRow[columnAttributes.EndDate] = booking.EndDate;
             aRow[columnAttributes.ReferenceNumberId] = booking.ReferenceNumberDetails.ID;
