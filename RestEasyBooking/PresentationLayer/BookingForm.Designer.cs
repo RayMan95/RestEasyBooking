@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BookingForm));
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -36,6 +37,8 @@
             this.guestaccounttextBox = new System.Windows.Forms.TextBox();
             this.addbookingbutton = new System.Windows.Forms.Button();
             this.cancelbutton = new System.Windows.Forms.Button();
+            this.startdatebutton = new System.Windows.Forms.Button();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.SuspendLayout();
             // 
             // label1
@@ -112,11 +115,30 @@
             this.cancelbutton.Text = "Cancel";
             this.cancelbutton.UseVisualStyleBackColor = true;
             // 
+            // startdatebutton
+            // 
+            this.startdatebutton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("startdatebutton.BackgroundImage")));
+            this.startdatebutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.startdatebutton.Location = new System.Drawing.Point(187, 35);
+            this.startdatebutton.Name = "startdatebutton";
+            this.startdatebutton.Size = new System.Drawing.Size(75, 35);
+            this.startdatebutton.TabIndex = 8;
+            this.startdatebutton.UseVisualStyleBackColor = true;
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(187, 108);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePicker1.TabIndex = 9;
+            // 
             // BookingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(451, 327);
+            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.startdatebutton);
             this.Controls.Add(this.cancelbutton);
             this.Controls.Add(this.addbookingbutton);
             this.Controls.Add(this.guestaccounttextBox);
@@ -142,5 +164,7 @@
         private System.Windows.Forms.TextBox guestaccounttextBox;
         private System.Windows.Forms.Button addbookingbutton;
         private System.Windows.Forms.Button cancelbutton;
+        private System.Windows.Forms.Button startdatebutton;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }
