@@ -21,9 +21,9 @@ namespace RestEasyBooking
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new Form1());
             GuestDB guestDB = new GuestDB();
-            BookingDB bookingDB = new BookingDB();
+            //BookingDB bookingDB = new BookingDB();
 
-            Collection<Booking> allBookings = bookingDB.AllBookings;
+            //Collection<Booking> allBookings = bookingDB.AllBookings;
             Collection<Guest> allGuests = guestDB.AllGuests;
 
             int bookingID = 3;
@@ -32,13 +32,13 @@ namespace RestEasyBooking
             int roomID = 5;
             double balance = 1000;
             bool paidDeposit = true;
-            GuestDetails guestDetails = new GuestDetails()
+            Entity.GuestDetails guestDetails = new Entity.GuestDetails()
             {
                 ID = 1,
                 AccountNumber = "g1"
             };
 
-            ReferenceNumberDetails referenceNumberDetails = new ReferenceNumberDetails()
+            Entity.ReferenceNumberDetails referenceNumberDetails = new Entity.ReferenceNumberDetails()
             {
                 ID = 1,
                 ReferenceNumber = "r1"
@@ -46,14 +46,34 @@ namespace RestEasyBooking
 
             Booking booking = new Booking(bookingID, startDate, endDate, roomID, balance, paidDeposit)
             {
-                GuestDetails = guestDetails,
-                ReferenceNumberDetails = referenceNumberDetails
+                MyGuestDetails = guestDetails,
+                MyReferenceNumberDetails = referenceNumberDetails
+            };
+
+            int id = 666;
+            GuestAccount guestAccount = new GuestAccount("g666", 6661);
+            string name = "666";
+            string phoneNum = "666";
+            string email = "666@goglogo.co.uk";
+            string address = "666 Devils Lane, Hell, -1";
+
+            Guest guest = new Guest(id, guestAccount, name, phoneNum, email, address)
+            {
+                MyReferenceNumberDetails = new Entity.ReferenceNumberDetails()
+                {
+                    ID = 666,
+                    ReferenceNumber = "r6661"
+                }
             };
 
 
-
+            DB.DBOperation operation = DB.DBOperation.Delete;
+            guestDB.DataSetChange(guest, operation);
+            guestDB.UpdateDataSource(operation);
             //bookingDB.DataSetChange(booking, DB.DBOperation.Delete);
             //bookingDB.UpdateDataSource();
+            
+            allGuests = guestDB.AllGuests;
 
             Console.WriteLine("YES");
         }

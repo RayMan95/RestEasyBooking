@@ -18,14 +18,14 @@ namespace RestEasyBooking.DatabaseLayer
         protected SqlDataAdapter daMain;
 
         //Data members
-        protected string tableGuest = "Guest";
-        protected string sqlLocalGuest = "SELECT * FROM Guest";
-        protected string tableGuestAccount = "GuestAccount";
-        protected string sqlLocalGuestAccount = "SELECT * FROM GuestAccount";
-        protected string tableRefNum = "ReferenceNumber";
-        protected string sqlLocalRefNum = "SELECT * FROM ReferenceNumber";
-        protected string tableBooking = "Booking";
-        protected string sqlLocalBooking = "SELECT * FROM Booking";
+        protected const string tableGuest = "Guest";
+        protected const string sqlLocalGuest = "SELECT * FROM Guest";
+        protected const string tableGuestAccount = "GuestAccount";
+        protected const string sqlLocalGuestAccount = "SELECT * FROM GuestAccount";
+        protected const string tableRefNum = "ReferenceNumber";
+        protected const string sqlLocalRefNum = "SELECT * FROM ReferenceNumber";
+        protected const string tableBooking = "Booking";
+        protected const string sqlLocalBooking = "SELECT * FROM Booking";
 
         protected ColumnAttributes columnAttributes;
 
@@ -80,7 +80,7 @@ namespace RestEasyBooking.DatabaseLayer
             }
         }
 
-        protected virtual void PopulateCollections() { }
+        public virtual void PopulateCollections() { }
 
         public void FillDataSet(string aSQLstring, string aTable)
         {
@@ -125,13 +125,26 @@ namespace RestEasyBooking.DatabaseLayer
             return success;
         }
 
-        protected DataRow FindFromTableByPrimaryKey(string table, int id)
+        protected DataRow FindFromTableByPrimaryKey(string table, int id, string guestAccountNumber)
         {
             // Has to be primary key to return unique DataRow
-            DataRow[] dataRows = dsMain.Tables[table].Select(filterExpression: "Id=" + id);
-            if (dataRows.Length > 0)
-                return dataRows[0];
-            else return null;
+            DataRow[] dataRows;
+            // GuestAccount table uses string as primary key
+            if (table == tableGuestAccount)
+            {
+                dataRows = dsMain.Tables[table].Select(filterExpression: "Id='" + guestAccountNumber+"'"); // TODO check
+                if (dataRows.Length > 0)
+                    return dataRows[0];
+                else return null;
+            }
+            else
+            {
+                dataRows = dsMain.Tables[table].Select(filterExpression: "Id=" + id);
+                if (dataRows.Length > 0)
+                    return dataRows[0];
+                else return null;
+            }
+            
         }
     }
 }

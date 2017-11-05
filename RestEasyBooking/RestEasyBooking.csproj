@@ -70,6 +70,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusinessLayer\Booking.cs" />
+    <Compile Include="BusinessLayer\Entity.cs" />
     <Compile Include="BusinessLayer\Guest.cs" />
     <Compile Include="BusinessLayer\GuestAccount.cs" />
     <Compile Include="BusinessLayer\Room.cs" />
@@ -139,11 +140,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="RestEasyBooking.mdf" />
-    <Content Include="RestEasyBooking_log.ldf">
-      <DependentUpon>RestEasyBooking.mdf</DependentUpon>
-    </Content>
+    <Content Include="RestEasyBooking_log.ldf" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup Condition="$(VisualStudioVersion) == '15.0'">
     <Reference Include="Microsoft.Data.Tools.Schema.Sql, Version=13.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>$(SSDTPath)\Microsoft.Data.Tools.Schema.Sql.dll</HintPath>

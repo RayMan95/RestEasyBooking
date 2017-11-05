@@ -6,20 +6,13 @@ using System.Threading.Tasks;
 
 namespace RestEasyBooking.BusinessLayer
 {
-    public class Room
+    public class Room : Entity
     {
-        public enum Season
-        {
-            Low = 0,
-            Mid = 1,
-            High = 2
-        }
-
         private bool occupied;
         private Season _season;
 
         #region Properties
-        public Season season
+        public Season CurrentSeason
         {
             get { return _season; }
             //set { _season = value; }

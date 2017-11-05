@@ -14,7 +14,14 @@ namespace RestEasyBooking.BusinessLayer.Tests
         [TestMethod()]
         public void GuestTest()
         {
-            Assert.Fail();
+            int id = 666;
+            GuestAccount guestAccount = new GuestAccount("g666", 666);
+            string name = "666";
+            string phoneNum = "666";
+            string email = "666@gmail.com";
+            string address = "666 Devils Lane, Hell, -1";
+
+            Guest guest = new Guest(id, guestAccount, name, phoneNum, email, address);
         }
 
         [TestMethod()]

@@ -40,7 +40,7 @@ namespace RestEasyBooking.DatabaseLayer
             PopulateCollections();
         }
 
-        protected override void PopulateCollections()
+        public override void PopulateCollections()
         {
             //Declare references to a myRow object and each relevant object
             DataRow myRow = null;
@@ -66,20 +66,20 @@ namespace RestEasyBooking.DatabaseLayer
 
                     // Query Guest table for GuestAccountNumber
                     // assumes guest already exists
-                    string guestAccountNumber = Convert.ToString(FindFromTableByPrimaryKey(tableGuest, guestid)[1]).TrimEnd();
+                    string guestAccountNumber = Convert.ToString(FindFromTableByPrimaryKey(tableGuest, guestid, "")[1]).TrimEnd();
 
                     // Query ReferenceNumber table for ReferenceNumber
                     // assumes ref number was already added 
-                    string refNumber = Convert.ToString(FindFromTableByPrimaryKey(tableRefNum, refNumId)[2]).TrimEnd();
+                    string refNumber = Convert.ToString(FindFromTableByPrimaryKey(tableRefNum, refNumId, "")[2]).TrimEnd();
 
                     // Structs
-                    GuestDetails guestDetails = new GuestDetails()
+                    Entity.GuestDetails guestDetails = new Entity.GuestDetails()
                     {
                         ID = guestid,
                         AccountNumber = guestAccountNumber
                     };
 
-                    ReferenceNumberDetails referenceNumberDetails = new ReferenceNumberDetails()
+                    Entity.ReferenceNumberDetails referenceNumberDetails = new Entity.ReferenceNumberDetails()
                     {
                         ID = refNumId,
                         ReferenceNumber = refNumber
@@ -88,8 +88,8 @@ namespace RestEasyBooking.DatabaseLayer
                     // Create booking instance
                     booking = new Booking(id, new DateTime(), new DateTime(), roomId, balance, paidDeposit)
                     {
-                        ReferenceNumberDetails = referenceNumberDetails,
-                        GuestDetails = guestDetails
+                        MyReferenceNumberDetails = referenceNumberDetails,
+                        MyGuestDetails = guestDetails
                     };
 
                     allBookings.Add(booking);
@@ -111,13 +111,13 @@ namespace RestEasyBooking.DatabaseLayer
                     break;
 
                 case DBOperation.Edit:
-                    aRow = FindFromTableByPrimaryKey(tableBooking, booking.ID);
+                    aRow = FindFromTableByPrimaryKey(tableBooking, booking.ID, "");
                     if (aRow == null) return false;
                     else FillRow(aRow, booking, operation);
                     break;
 
                 case DBOperation.Delete:
-                    aRow = FindFromTableByPrimaryKey(tableBooking, booking.ID);
+                    aRow = FindFromTableByPrimaryKey(tableBooking, booking.ID, "");
                     if (aRow == null) return false;
                     aRow.Delete();
                     break;
@@ -241,11 +241,11 @@ namespace RestEasyBooking.DatabaseLayer
             if (operation == DB.DBOperation.Add)
             {
                 aRow[columnAttributes.ID] = booking.ID;
-                aRow[columnAttributes.GuestID] = booking.GuestDetails.ID;
+                aRow[columnAttributes.GuestID] = booking.MyGuestDetails.ID;
             }
             aRow[columnAttributes.StartDate] = booking.StartDate;
             aRow[columnAttributes.EndDate] = booking.EndDate;
-            aRow[columnAttributes.ReferenceNumberId] = booking.ReferenceNumberDetails.ID;
+            aRow[columnAttributes.ReferenceNumberId] = booking.MyReferenceNumberDetails.ID;
             aRow[columnAttributes.RoomID] = booking.RoomID;
             aRow[columnAttributes.Balance] = booking.Balance;
             aRow[columnAttributes.PaidDeposit] = booking.PaidDeposit;

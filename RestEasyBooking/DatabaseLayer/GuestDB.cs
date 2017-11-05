@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace RestEasyBooking.DatabaseLayer
 {
@@ -37,7 +38,7 @@ namespace RestEasyBooking.DatabaseLayer
 
         
 
-        protected override void PopulateCollections()
+        public override void PopulateCollections()
         {
             //Declare references to a myRow object and each relevant object
             DataRow myRow = null;
@@ -62,7 +63,7 @@ namespace RestEasyBooking.DatabaseLayer
                     {
                         guestAccountNumber = Convert.ToString(myRow[columnAttributes.GuestAccountNumber]).TrimEnd();
                         double amount = 0;
-                        //double amount = Convert.ToInt32(dsMain.Tables[tableGuestAccount].Select(filterExpression: "Id=" + GuestAccountNumber)[0].ItemArray[1]);
+                        //double amount = Convert.ToInt32(FindFromTableByPrimaryKey(tableGuestAccount, 0, guest.GuestAccountNumber).ItemArray[1]);
                         //READ from GuestAccount table
                         foreach (DataRow myRow_loopVariable2 in dsMain.Tables[tableGuestAccount].Rows)
                         {
@@ -85,31 +86,28 @@ namespace RestEasyBooking.DatabaseLayer
                         email = Convert.ToString(myRow[columnAttributes.Email]).TrimEnd();
                         address = Convert.ToString(myRow[columnAttributes.Address]).TrimEnd();
 
+                        guest = new Guest(id, guestAcc, name, phone, email, address);
+
                         //READ from ReferenceNumber table
                         foreach (DataRow myRow_loopVariable2 in dsMain.Tables[tableRefNum].Rows)
                         {
                             myRow = myRow_loopVariable2;
                             if (!(myRow.RowState == DataRowState.Deleted))
                             {
-                                if (Convert.ToInt32(myRow[columnAttributes.GuestID]) == id)
+                                if (myRow[columnAttributes.GuestID] != DBNull.Value && Convert.ToInt32(myRow[columnAttributes.GuestID]) == id)
                                 {
                                     int refId = Convert.ToInt32(myRow[columnAttributes.ID]);
                                     string refNum = Convert.ToString(myRow[columnAttributes.ReferenceNumber]).TrimEnd();
                                     // Add all reference numbers
-                                    guestAcc.AddReferenceNumber(new ReferenceNumberDetails()
-                                        {
-                                            ID = refId,
-                                            ReferenceNumber = refNum
-                                        }
-                                    );
+                                    guest.MyReferenceNumberDetails = new Entity.ReferenceNumberDetails()
+                                    {
+                                        ID = refId,
+                                        ReferenceNumber = refNum
+                                    };
+                                    break;
                                 }
                             }
                         }
-
-                        guest = new Guest(id, guestAccountNumber, name, phone, email, address)
-                        {
-                            guestAccount = guestAcc
-                        };
 
                         allGuests.Add(guest);
                     }    
@@ -124,22 +122,59 @@ namespace RestEasyBooking.DatabaseLayer
             switch (operation)
             {
                 case DB.DBOperation.Add:
+                    // Add to GuestAccount table
+                    aRow = dsMain.Tables[tableGuestAccount].NewRow();
+                    FillRow(aRow, guest, operation, tableGuestAccount);
+                    dsMain.Tables[tableGuestAccount].Rows.Add(aRow);
+
+                    // Add to Guest table
                     aRow = dsMain.Tables[tableGuest].NewRow();
-                    FillRow(aRow, guest, operation);
-                    //Add to the dataset
+                    FillRow(aRow, guest, operation, tableGuest);
                     dsMain.Tables[tableGuest].Rows.Add(aRow);
+
+                    // Add to ReferenceNumber table
+                    aRow = dsMain.Tables[tableRefNum].NewRow();
+                    FillRow(aRow, guest, operation, tableRefNum);
+                    dsMain.Tables[tableRefNum].Rows.Add(aRow);
+
                     break;
 
                 case DBOperation.Edit:
-                    aRow = FindFromTableByPrimaryKey(tableGuest, guest.ID);
+                    // Edit for GuestAccount table
+                    aRow = FindFromTableByPrimaryKey(tableGuestAccount, 0, guest.GuestAccountNumber);
                     if (aRow == null) return false;
-                    else FillRow(aRow, guest, operation);
+                    else FillRow(aRow, guest, operation, tableGuestAccount);
+                    
+
+                    // Edit for Guest table
+                    aRow = FindFromTableByPrimaryKey(tableGuest, guest.ID, "");
+                    if (aRow == null) return false;
+                    else FillRow(aRow, guest, operation, tableGuest);
+
+                    // Edit for ReferenceNumber table
+                    aRow = FindFromTableByPrimaryKey(tableRefNum, guest.MyReferenceNumberDetails.ID, "");
+                    if (aRow == null) return false;
+                    else FillRow(aRow, guest, operation, tableRefNum);
                     break;
 
                 case DBOperation.Delete:
-                    aRow = FindFromTableByPrimaryKey(tableGuest, guest.ID);
+                    // Delete from ReferenceNumber table
+                    aRow = FindFromTableByPrimaryKey(tableRefNum, guest.MyReferenceNumberDetails.ID, ""); // TODO check
                     if (aRow == null) return false;
                     aRow.Delete();
+
+                    // Delete from Guest table
+                    aRow = FindFromTableByPrimaryKey(tableGuest, guest.ID, "");
+                    if (aRow == null) return false;
+                    aRow.Delete();
+
+                    // Delete from GuestAccount table
+                    aRow = FindFromTableByPrimaryKey(tableGuestAccount, 0, guest.GuestAccountNumber); // TODO check
+                    if (aRow == null) return false;
+                    aRow.Delete();
+
+                    
+
                     break;
             }
 
@@ -148,94 +183,201 @@ namespace RestEasyBooking.DatabaseLayer
         #endregion
 
         #region Build Parameters, Create Commands & Update database
-        private void BuildParameters(DBOperation operation)
+        private void BuildParameters(DBOperation operation, string table)
         {
+
             //Create Parameters to communicate with SQL INSERT
-            SqlParameter idParam = new SqlParameter("@ID", SqlDbType.Int, 4, columnAttributes.ID);
-            switch (operation)
+            // Primary/foreign keys
+            SqlParameter intIdParam = new SqlParameter("@ID", SqlDbType.Int, 4, columnAttributes.ID);
+            SqlParameter guestAccountParam = new SqlParameter("@GUESTACCOUNTNUMBER", SqlDbType.NVarChar, 10, columnAttributes.GuestAccountNumber);
+            SqlParameter guestIdParam = new SqlParameter("@GUESTID", SqlDbType.NVarChar, 10, columnAttributes.ID);
+            SqlParameter bookIdParam = new SqlParameter("@BOOKID", SqlDbType.Int, 4, columnAttributes.BookID);
+            SqlParameter refnumIdParam = new SqlParameter("@REFERENCENUMBERID", SqlDbType.Int, 4, columnAttributes.ID);
+            //All other columns
+            SqlParameter nameParam = new SqlParameter("@NAME", SqlDbType.NVarChar, 50, columnAttributes.Name);
+            SqlParameter phoneParam = new SqlParameter("@PHONE", SqlDbType.NVarChar, 15, columnAttributes.Phone);
+            SqlParameter emailParam = new SqlParameter("@EMAIL", SqlDbType.NVarChar, 50, columnAttributes.Email);
+            SqlParameter refnumParam = new SqlParameter("@REFERENCENUMBER", SqlDbType.NVarChar, 20, columnAttributes.ReferenceNumber);
+            SqlParameter addressParam = new SqlParameter("@ADDRESS", SqlDbType.NVarChar, 100, columnAttributes.Address);
+            SqlParameter balanceParam = new SqlParameter("@BALANCE", SqlDbType.Float, 8, columnAttributes.Balance);
+
+
+            switch (table) // for different tables
             {
-                case DBOperation.Add:
-                    daMain.InsertCommand.Parameters.Add(idParam);
+                case tableGuest:
+                    switch (operation) // for different operations on table
+                    {
+                        case DBOperation.Add:
+                            daMain.InsertCommand.Parameters.Add(intIdParam);
+                            daMain.InsertCommand.Parameters.Add(guestAccountParam);
+                            daMain.InsertCommand.Parameters.Add(nameParam);
+                            daMain.InsertCommand.Parameters.Add(phoneParam);
+                            daMain.InsertCommand.Parameters.Add(emailParam);
+                            daMain.InsertCommand.Parameters.Add(addressParam);
+                            break;
+
+                        case DBOperation.Edit:
+                            intIdParam.SourceVersion = DataRowVersion.Original;
+                            daMain.UpdateCommand.Parameters.Add(intIdParam);
+                            nameParam.SourceVersion = DataRowVersion.Current;
+                            daMain.UpdateCommand.Parameters.Add(nameParam);
+                            phoneParam.SourceVersion = DataRowVersion.Current;
+                            daMain.UpdateCommand.Parameters.Add(phoneParam);
+                            emailParam.SourceVersion = DataRowVersion.Current;
+                            daMain.UpdateCommand.Parameters.Add(emailParam);
+                            addressParam.SourceVersion = DataRowVersion.Current;
+                            daMain.UpdateCommand.Parameters.Add(addressParam);
+                            break;
+
+                        case DBOperation.Delete:
+                            daMain.DeleteCommand.Parameters.Add(intIdParam);
+                            break;
+                    }
                     break;
-                case DBOperation.Edit:
-                    daMain.UpdateCommand.Parameters.Add(idParam);
+
+                case tableGuestAccount:
+                    switch (operation)
+                    {
+                        case DBOperation.Add:
+                            daMain.InsertCommand.Parameters.Add(guestIdParam);
+                            daMain.InsertCommand.Parameters.Add(balanceParam);
+                            break;
+
+                        case DBOperation.Edit:
+                            guestIdParam.SourceVersion = DataRowVersion.Original;
+                            daMain.UpdateCommand.Parameters.Add(guestIdParam);
+                            balanceParam.SourceVersion = DataRowVersion.Current;
+                            daMain.UpdateCommand.Parameters.Add(balanceParam);
+                            break;
+
+                        case DBOperation.Delete:
+                            daMain.DeleteCommand.Parameters.Add(guestIdParam);
+                            break;
+                    }
                     break;
-                case DBOperation.Delete:
-                    daMain.DeleteCommand.Parameters.Add(idParam);
+
+                case tableRefNum:
+                    switch (operation)
+                    {
+                        case DBOperation.Add:
+                            daMain.InsertCommand.Parameters.Add(refnumIdParam);
+                            daMain.InsertCommand.Parameters.Add(refnumParam);
+                            daMain.InsertCommand.Parameters.Add(guestIdParam);
+                            break;
+
+                        case DBOperation.Edit:
+                            refnumIdParam.SourceVersion = DataRowVersion.Original;
+                            daMain.UpdateCommand.Parameters.Add(refnumIdParam);
+                            refnumParam.SourceVersion = DataRowVersion.Current;
+                            daMain.UpdateCommand.Parameters.Add(refnumParam);
+                            break;
+
+                        case DBOperation.Delete:
+                            daMain.DeleteCommand.Parameters.Add(refnumIdParam);
+                            break;
+                    }
                     break;
             }
-
-
-            if (operation != DBOperation.Delete)
-            {
-                if (operation != DBOperation.Edit)
-                {
-                    //exclude GuestID(which should/must not change)
-                    idParam = new SqlParameter("@GUESTACCOUNTNUMBER", SqlDbType.NVarChar, 10, columnAttributes.GuestAccountNumber);
-                    daMain.InsertCommand.Parameters.Add(idParam);
-                }
-
-                SqlParameter startDateParam = new SqlParameter("@NAME", SqlDbType.NVarChar, 50, columnAttributes.Name);
-                SqlParameter enDateParam = new SqlParameter("@PHONE", SqlDbType.NVarChar, 15, columnAttributes.Phone);
-                SqlParameter refnumIdParam = new SqlParameter("@EMAIL", SqlDbType.NVarChar, 50, columnAttributes.Email);
-                SqlParameter roomIdParam = new SqlParameter("@ADDRESS", SqlDbType.NVarChar, 100, columnAttributes.Address);
-
-                switch (operation)
-                {
-                    case DBOperation.Add:
-                        daMain.InsertCommand.Parameters.Add(startDateParam);
-                        daMain.InsertCommand.Parameters.Add(enDateParam);
-                        daMain.InsertCommand.Parameters.Add(refnumIdParam);
-                        daMain.InsertCommand.Parameters.Add(roomIdParam);
-                        break;
-
-                    case DBOperation.Edit:
-                        daMain.UpdateCommand.Parameters.Add(startDateParam);
-                        daMain.UpdateCommand.Parameters.Add(enDateParam);
-                        daMain.UpdateCommand.Parameters.Add(refnumIdParam);
-                        daMain.UpdateCommand.Parameters.Add(roomIdParam);
-                        break;
-                }
-            }
+            
         }
 
-        private string CreateCommand(DBOperation operation)
+        private string CreateCommand(DBOperation operation, string table)
         {
-            switch (operation)
+            switch (table)
             {
-                case DBOperation.Add:
-                    daMain.InsertCommand = new SqlCommand("INSERT into " + tableGuest +
-                        " (" + columnAttributes.ID + ", " +
-                        columnAttributes.GuestAccountNumber + ", " +
-                        columnAttributes.Name + ", " +
-                        columnAttributes.Phone + ", " +
-                        columnAttributes.Email + ", " +
-                        columnAttributes.Address + ")" +
-                        " VALUES (@ID, @GUESTACCOUNTNUMBER, @NAME, @PHONE, @EMAIL, @ADDRESS)",
-                        cnMain);
+                case tableGuest:
+                    switch (operation)
+                    {
+                        case DBOperation.Add:
+                            daMain.InsertCommand = new SqlCommand("INSERT into " + tableGuest +
+                                " (" + columnAttributes.ID + ", " +
+                                columnAttributes.GuestAccountNumber + ", " +
+                                columnAttributes.Name + ", " +
+                                columnAttributes.Phone + ", " +
+                                columnAttributes.Email + ", " +
+                                columnAttributes.Address + ")" +
+                                " VALUES (@ID, @GUESTACCOUNTNUMBER, @NAME, @PHONE, @EMAIL, @ADDRESS)",
+                                cnMain);
+                            break;
+
+                        case DBOperation.Edit:
+                            daMain.UpdateCommand = new SqlCommand("UPDATE " + tableGuest +
+                                " SET " +
+                                columnAttributes.Name + " =@NAME, " +
+                                columnAttributes.Phone + " =@PHONE, " +
+                                columnAttributes.Email + " =@EMAIL, " +
+                                columnAttributes.Address + " =@ADDRESS " +
+                                "WHERE " +
+                                columnAttributes.ID + " = @ID",
+                                cnMain);
+                            break;
+
+                        case DBOperation.Delete:
+                            daMain.DeleteCommand = new SqlCommand("DELETE FROM " + tableGuest +
+                                " WHERE " + columnAttributes.ID + " = @ID", cnMain);
+                            break;
+                    }
                     break;
 
-                case DBOperation.Edit:
-                    daMain.UpdateCommand = new SqlCommand("UPDATE " + tableGuest +
-                        " SET " +
-                        columnAttributes.Name + " =@NAME, " +
-                        columnAttributes.Phone + " =@PHONE, " +
-                        columnAttributes.Email + " =@EMAIL, " +
-                        columnAttributes.Address + " =@ADDRESS, " +
-                        "WHERE " +
-                        columnAttributes.ID + "=@ID",
-                        cnMain);
-                    break;
+                case tableGuestAccount:
+                    switch (operation)
+                    {
+                        case DBOperation.Add:
+                            daMain.InsertCommand = new SqlCommand("INSERT into " + tableGuestAccount +
+                                " (" + columnAttributes.ID + ", " +
+                                columnAttributes.Balance + ")" +
+                                " VALUES (@GUESTID, @BALANCE)",
+                                cnMain);
+                            break;
 
-                case DBOperation.Delete:
-                    daMain.DeleteCommand = new SqlCommand("DELETE FROM " + tableGuest +
-                        " WHERE " + columnAttributes.ID + "=@ID", cnMain);
+                        case DBOperation.Edit:
+                            daMain.UpdateCommand = new SqlCommand("UPDATE " + tableGuestAccount +
+                                " SET " +
+                                columnAttributes.Balance + " =@BALANCE " +
+                                "WHERE " +
+                                columnAttributes.ID + " = @GUESTID",
+                                cnMain);
+                            break;
+
+                        case DBOperation.Delete:
+                            daMain.DeleteCommand = new SqlCommand("DELETE FROM " + tableGuestAccount +
+                                " WHERE " + columnAttributes.ID + " = @GUESTID", cnMain);
+                            break;
+                    }
+                    break;
+                case tableRefNum:
+                    switch (operation)
+                    {
+                        case DBOperation.Add:
+                            daMain.InsertCommand = new SqlCommand("INSERT into " + tableRefNum +
+                                " (" + columnAttributes.ID + ", " +
+                                columnAttributes.ReferenceNumber + ", " +
+                                columnAttributes.GuestID + ")" +
+                                " VALUES (@REFERENCENUMBERID, @REFERENCENUMBER, @GUESTID)",
+                                cnMain);
+                            break;
+
+                        case DBOperation.Edit:
+                            daMain.UpdateCommand = new SqlCommand("UPDATE " + tableRefNum +
+                                " SET " +
+                                columnAttributes.ReferenceNumber + " =@REFERENCENUMBER " +
+                                "WHERE " +
+                                columnAttributes.ID + " = @REFERENCENUMBERID",
+                                cnMain);
+                            break;
+
+                        case DBOperation.Delete:
+                            daMain.DeleteCommand = new SqlCommand("DELETE FROM " + tableRefNum +
+                                " WHERE " + columnAttributes.ID + " = @REFERENCENUMBERID", cnMain);
+                            break;
+                    }
                     break;
             }
+            
             string errorstring = "";
             try
             {
-                BuildParameters(operation);
+                BuildParameters(operation, table);
             }
             catch (Exception exception)
             {
@@ -245,27 +387,86 @@ namespace RestEasyBooking.DatabaseLayer
             return errorstring;
         }
 
-        private void FillRow(DataRow aRow, Guest guest, DB.DBOperation operation)
+        private void FillRow(DataRow aRow, Guest guest, DB.DBOperation operation, string table)
         {
             //NOTE square brackets to indicate index of collections of fields in row.
-            if (operation == DB.DBOperation.Add)
+            switch (table)
             {
-                aRow[columnAttributes.ID] = guest.ID;
-                aRow[columnAttributes.GuestAccountNumber] = guest.GuestAccountNumber;
+                case tableGuest:
+                    if (operation == DB.DBOperation.Add)
+                    {
+                        aRow[columnAttributes.ID] = guest.ID;
+                        aRow[columnAttributes.GuestAccountNumber] = guest.GuestAccountNumber;
+                    }
+                    aRow[columnAttributes.Name] = guest.Name;
+                    aRow[columnAttributes.Phone] = guest.PhoneNumber;
+                    aRow[columnAttributes.Email] = guest.Email;
+                    aRow[columnAttributes.Address] = guest.Address;
+                    break;
+
+                case tableGuestAccount:
+                    // id of GuestAccunt table is GuestAccountNumber
+                    if (operation == DB.DBOperation.Add) aRow[columnAttributes.ID] = guest.GuestAccountNumber;
+                    aRow[columnAttributes.Balance] = guest.Balance;
+                    break;
+
+                case tableRefNum:
+                    if (operation == DB.DBOperation.Add) aRow[columnAttributes.ID] = guest.MyReferenceNumberDetails.ID;
+                    aRow[columnAttributes.ReferenceNumber] = guest.MyReferenceNumberDetails.ReferenceNumber;
+                    aRow[columnAttributes.GuestID] = guest.ID;
+                    break;
             }
-            aRow[columnAttributes.Name] = guest.Name;
-            aRow[columnAttributes.Phone] = guest.PhoneNumber;
-            aRow[columnAttributes.Email] = guest.Email;
-            aRow[columnAttributes.Address] = guest.Address;
+            
         }
 
-        public bool UpdateDataSource()
+        public bool UpdateDataSource(DBOperation operation)
         {
-            //bool success = true;
-            CreateCommand(DBOperation.Add);
-            CreateCommand(DBOperation.Edit);
-            CreateCommand(DBOperation.Delete);
-            return UpdateDataSource(sqlLocalGuest, tableGuest);
+            // NB: first update GuestAccount table
+            bool guestSuccess = false, guestAccountSuccess = false, refNumSuccess = false;
+            try
+            {
+                switch (operation)
+                {
+                    case DBOperation.Delete:
+                        CreateCommand(DBOperation.Add, tableRefNum);
+                        CreateCommand(DBOperation.Edit, tableRefNum);
+                        CreateCommand(DBOperation.Delete, tableRefNum);
+                        refNumSuccess = UpdateDataSource(sqlLocalRefNum, tableRefNum);
+                        CreateCommand(DBOperation.Add, tableGuest);
+                        CreateCommand(DBOperation.Edit, tableGuest);
+                        CreateCommand(DBOperation.Delete, tableGuest);
+                        guestSuccess = UpdateDataSource(sqlLocalGuest, tableGuest);
+                        CreateCommand(DBOperation.Add, tableGuestAccount);
+                        CreateCommand(DBOperation.Edit, tableGuestAccount);
+                        CreateCommand(DBOperation.Delete, tableGuestAccount);
+                        guestAccountSuccess = UpdateDataSource(sqlLocalGuestAccount, tableGuestAccount);
+                        break;
+
+                    default:
+                        CreateCommand(DBOperation.Add, tableGuestAccount);
+                        CreateCommand(DBOperation.Edit, tableGuestAccount);
+                        CreateCommand(DBOperation.Delete, tableGuestAccount);
+                        guestAccountSuccess = UpdateDataSource(sqlLocalGuestAccount, tableGuestAccount);
+                        CreateCommand(DBOperation.Add, tableGuest);
+                        CreateCommand(DBOperation.Edit, tableGuest);
+                        CreateCommand(DBOperation.Delete, tableGuest);
+                        guestSuccess = UpdateDataSource(sqlLocalGuest, tableGuest);
+                        CreateCommand(DBOperation.Add, tableRefNum);
+                        CreateCommand(DBOperation.Edit, tableRefNum);
+                        CreateCommand(DBOperation.Delete, tableRefNum);
+                        refNumSuccess = UpdateDataSource(sqlLocalRefNum, tableRefNum);
+
+                        break;
+                }
+            }
+            catch (Exception exc)
+            {
+                cnMain.Close();
+                MessageBox.Show(exc.Message + "  " + exc.StackTrace);
+                return false;
+            }
+
+            return guestSuccess && guestAccountSuccess;
         }
         #endregion
     }

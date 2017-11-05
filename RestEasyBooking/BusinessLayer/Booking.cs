@@ -6,21 +6,7 @@ using System.Threading.Tasks;
 
 namespace RestEasyBooking.BusinessLayer
 {
-    #region
-    public struct GuestDetails
-    {
-        public int ID;
-        public string AccountNumber;
-    }
-
-    public struct ReferenceNumberDetails
-    {
-        public int ID;
-        public string ReferenceNumber;
-    }
-    #endregion
-
-    public class Booking
+    public class Booking : Entity
     {
         private int _id;
         private DateTime startDate;
@@ -63,13 +49,13 @@ namespace RestEasyBooking.BusinessLayer
             get { return paidDeposit; }
         }
 
-        public ReferenceNumberDetails ReferenceNumberDetails
+        public ReferenceNumberDetails MyReferenceNumberDetails
         {
             get { return _referenceNumberDetails; }
             set { _referenceNumberDetails = value; }
         }
 
-        public GuestDetails GuestDetails
+        public GuestDetails MyGuestDetails
         {
             get { return guestDetails; }
             set { guestDetails = value; }
@@ -86,6 +72,8 @@ namespace RestEasyBooking.BusinessLayer
 
             balance = curr_balance;
             paidDeposit = paidDep;
+
+            //_referenceNumberDetails = new ReferenceNumberDetails();
         }
 
         public double Payment(double amount, bool deposit)

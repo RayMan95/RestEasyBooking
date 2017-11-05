@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 namespace RestEasyBooking.BusinessLayer
 {
 
-    public class Guest
+    public class Guest : Entity
     {
         private int guestID;
         private GuestAccount _guestAccount;
+        private ReferenceNumberDetails referenceNumberDetails;
         private string _name;
         private string _phoneNumber;
         private string _email;
@@ -40,6 +41,12 @@ namespace RestEasyBooking.BusinessLayer
             get { return _address; }
         }
 
+        public ReferenceNumberDetails MyReferenceNumberDetails
+        {
+            get { return referenceNumberDetails; }
+            set { referenceNumberDetails = value; }
+        }
+
         public string GuestAccountNumber
         {
             get { return _guestAccount.AccountNumber; }
@@ -54,17 +61,12 @@ namespace RestEasyBooking.BusinessLayer
         {
             get { return guestID; }
         }
-
-        public GuestAccount guestAccount
-        {
-            set { _guestAccount = value; }
-        }
         #endregion
 
-        public Guest(int guestid, string accountNumber, string name, string phoneNum, string email, string address)
+        public Guest(int guestid, GuestAccount guestAcc, string name, string phoneNum, string email, string address)
         {
             guestID = guestid;
-            guestAccountNumber = accountNumber;
+            _guestAccount = guestAcc;
             _name = name;
             _phoneNumber = phoneNum;
             _email = email;
@@ -104,9 +106,10 @@ namespace RestEasyBooking.BusinessLayer
             }
         }
 
-        public double Payment(double amount, string ref_num)
+        public double Payment(double amount, ReferenceNumberDetails ref_num)
         {
-            return _guestAccount.Payment(amount, ref_num);
+            referenceNumberDetails = ref_num;
+            return _guestAccount.Payment(amount);
         }
     }
 }
