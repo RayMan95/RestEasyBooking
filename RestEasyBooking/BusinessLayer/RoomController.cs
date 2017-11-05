@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using RestEasyBooking.DatabaseLayer;
 
+using DatesTuple = System.Tuple<System.DateTime, System.DateTime>;
+using RoomDatesTuple = System.Tuple<int, System.Collections.ObjectModel.Collection<System.Tuple<System.DateTime, System.DateTime>>>;
+
 namespace RestEasyBooking.BusinessLayer
 {
     public class RoomController
@@ -44,13 +47,14 @@ namespace RestEasyBooking.BusinessLayer
             return true;
         }
 
-        public void SeedRooms(Collection<Room> seededRooms, Collection<Collection<Tuple<DateTime, DateTime>>> roomBookings)
+        public void SeedRooms(Collection<RoomDatesTuple> roomBookings)
         {
-            for (int i = 0; i < seededRooms.Count; ++i)
+            for (int i = 0; i < roomBookings.Count; ++i)
             {
-                foreach(Tuple<DateTime, DateTime> datesBooked in roomBookings[i])
+                int roomId = roomBookings[i].Item1;
+                foreach(DatesTuple datesBooked in roomBookings[i].Item2)
                 {
-                    allRooms[seededRooms[i].ID].Book(datesBooked.Item1, datesBooked.Item2);
+                    allRooms[roomId].Book(datesBooked.Item1, datesBooked.Item2);
                 }
             }
         }
