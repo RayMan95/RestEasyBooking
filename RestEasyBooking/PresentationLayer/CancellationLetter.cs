@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace RestEasyBooking.PresentationLayer
 {
-    public partial class ConfirmationLetter : Form
+    public partial class CancellationLetter : Form
     {
-        public ConfirmationLetter()
+        public CancellationLetter()
         {
             InitializeComponent();
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

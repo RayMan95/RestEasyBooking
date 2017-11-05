@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GuestForm));
             this.namelabel = new System.Windows.Forms.Label();
             this.nametextBox = new System.Windows.Forms.TextBox();
             this.surnamelabel = new System.Windows.Forms.Label();
@@ -40,13 +41,16 @@
             this.accounttextBox = new System.Windows.Forms.TextBox();
             this.addbutton = new System.Windows.Forms.Button();
             this.cancelbutton = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // namelabel
             // 
             this.namelabel.AutoSize = true;
             this.namelabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.namelabel.Location = new System.Drawing.Point(30, 31);
+            this.namelabel.Location = new System.Drawing.Point(30, 84);
             this.namelabel.Name = "namelabel";
             this.namelabel.Size = new System.Drawing.Size(48, 18);
             this.namelabel.TabIndex = 0;
@@ -54,7 +58,7 @@
             // 
             // nametextBox
             // 
-            this.nametextBox.Location = new System.Drawing.Point(158, 29);
+            this.nametextBox.Location = new System.Drawing.Point(149, 82);
             this.nametextBox.Name = "nametextBox";
             this.nametextBox.Size = new System.Drawing.Size(195, 20);
             this.nametextBox.TabIndex = 1;
@@ -63,7 +67,7 @@
             // 
             this.surnamelabel.AutoSize = true;
             this.surnamelabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.surnamelabel.Location = new System.Drawing.Point(30, 75);
+            this.surnamelabel.Location = new System.Drawing.Point(30, 133);
             this.surnamelabel.Name = "surnamelabel";
             this.surnamelabel.Size = new System.Drawing.Size(71, 18);
             this.surnamelabel.TabIndex = 2;
@@ -71,7 +75,7 @@
             // 
             // surnametextBox
             // 
-            this.surnametextBox.Location = new System.Drawing.Point(158, 75);
+            this.surnametextBox.Location = new System.Drawing.Point(149, 131);
             this.surnametextBox.Name = "surnametextBox";
             this.surnametextBox.Size = new System.Drawing.Size(195, 20);
             this.surnametextBox.TabIndex = 3;
@@ -80,7 +84,7 @@
             // 
             this.emaillabel.AutoSize = true;
             this.emaillabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.emaillabel.Location = new System.Drawing.Point(30, 124);
+            this.emaillabel.Location = new System.Drawing.Point(30, 171);
             this.emaillabel.Name = "emaillabel";
             this.emaillabel.Size = new System.Drawing.Size(46, 18);
             this.emaillabel.TabIndex = 4;
@@ -88,7 +92,7 @@
             // 
             // emailtextBox
             // 
-            this.emailtextBox.Location = new System.Drawing.Point(158, 122);
+            this.emailtextBox.Location = new System.Drawing.Point(149, 169);
             this.emailtextBox.Name = "emailtextBox";
             this.emailtextBox.Size = new System.Drawing.Size(195, 20);
             this.emailtextBox.TabIndex = 5;
@@ -97,7 +101,7 @@
             // 
             this.addresslabel.AutoSize = true;
             this.addresslabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addresslabel.Location = new System.Drawing.Point(30, 170);
+            this.addresslabel.Location = new System.Drawing.Point(30, 219);
             this.addresslabel.Name = "addresslabel";
             this.addresslabel.Size = new System.Drawing.Size(110, 18);
             this.addresslabel.TabIndex = 6;
@@ -105,7 +109,7 @@
             // 
             // addresstextBox
             // 
-            this.addresstextBox.Location = new System.Drawing.Point(158, 168);
+            this.addresstextBox.Location = new System.Drawing.Point(149, 217);
             this.addresstextBox.Name = "addresstextBox";
             this.addresstextBox.Size = new System.Drawing.Size(195, 20);
             this.addresstextBox.TabIndex = 7;
@@ -114,7 +118,7 @@
             // 
             this.accountlabel.AutoSize = true;
             this.accountlabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.accountlabel.Location = new System.Drawing.Point(30, 210);
+            this.accountlabel.Location = new System.Drawing.Point(30, 272);
             this.accountlabel.Name = "accountlabel";
             this.accountlabel.Size = new System.Drawing.Size(89, 18);
             this.accountlabel.TabIndex = 8;
@@ -122,7 +126,7 @@
             // 
             // accounttextBox
             // 
-            this.accounttextBox.Location = new System.Drawing.Point(158, 208);
+            this.accounttextBox.Location = new System.Drawing.Point(149, 270);
             this.accounttextBox.Name = "accounttextBox";
             this.accounttextBox.Size = new System.Drawing.Size(195, 20);
             this.accounttextBox.TabIndex = 9;
@@ -130,7 +134,7 @@
             // addbutton
             // 
             this.addbutton.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addbutton.Location = new System.Drawing.Point(33, 297);
+            this.addbutton.Location = new System.Drawing.Point(33, 354);
             this.addbutton.Name = "addbutton";
             this.addbutton.Size = new System.Drawing.Size(75, 23);
             this.addbutton.TabIndex = 10;
@@ -140,18 +144,40 @@
             // cancelbutton
             // 
             this.cancelbutton.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cancelbutton.Location = new System.Drawing.Point(403, 297);
+            this.cancelbutton.Location = new System.Drawing.Point(400, 354);
             this.cancelbutton.Name = "cancelbutton";
             this.cancelbutton.Size = new System.Drawing.Size(75, 23);
             this.cancelbutton.TabIndex = 11;
             this.cancelbutton.Text = "Cancel";
             this.cancelbutton.UseVisualStyleBackColor = true;
             // 
-            // BookingForm
+            // pictureBox1
+            // 
+            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.pictureBox1.Location = new System.Drawing.Point(1, 1);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(100, 50);
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(174, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(119, 29);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "RestEasy";
+            // 
+            // GuestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(515, 332);
+            this.ClientSize = new System.Drawing.Size(515, 389);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cancelbutton);
             this.Controls.Add(this.addbutton);
             this.Controls.Add(this.accounttextBox);
@@ -164,9 +190,10 @@
             this.Controls.Add(this.surnamelabel);
             this.Controls.Add(this.nametextBox);
             this.Controls.Add(this.namelabel);
-            this.Name = "BookingForm";
+            this.Name = "GuestForm";
             this.Text = "Guest Form";
             this.Load += new System.EventHandler(this.BookingForm_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,5 +213,7 @@
         private System.Windows.Forms.TextBox accounttextBox;
         private System.Windows.Forms.Button addbutton;
         private System.Windows.Forms.Button cancelbutton;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label1;
     }
 }
