@@ -143,5 +143,22 @@ namespace RestEasyBooking.PresentationLayer
             guestForm.MdiParent = this;        // Setting the MDI Parent
             guestForm.StartPosition = FormStartPosition.CenterParent;
         }
+
+        private void makePaymentToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(paymentForm == null)
+            { 
+
+            }
+            paymentForm.Show();
+
+        }
+
+        private void MakePaymentForm()
+        {
+            paymentForm = new PaymentForm();
+            paymentForm.MdiParent = this;        // Setting the MDI Parent
+            paymentForm.StartPosition = FormStartPosition.CenterParent;
+        }
     }
 }

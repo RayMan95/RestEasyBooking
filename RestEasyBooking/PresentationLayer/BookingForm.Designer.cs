@@ -78,6 +78,7 @@
             // 
             this.pricetextBox.Location = new System.Drawing.Point(187, 186);
             this.pricetextBox.Name = "pricetextBox";
+            this.pricetextBox.ReadOnly = true;
             this.pricetextBox.Size = new System.Drawing.Size(181, 20);
             this.pricetextBox.TabIndex = 4;
             // 

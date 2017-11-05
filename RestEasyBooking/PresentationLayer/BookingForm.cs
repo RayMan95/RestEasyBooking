@@ -15,7 +15,7 @@ namespace RestEasyBooking.PresentationLayer
     {
 
         public bool BookingFormClosed = false;
-        private GuestController guestController ;
+       // private GuestController guestController ;
         private Guest guest;
         private StartDateForm startDateForm;
        

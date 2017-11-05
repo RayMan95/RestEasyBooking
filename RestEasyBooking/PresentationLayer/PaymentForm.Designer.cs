@@ -82,6 +82,7 @@
             this.submitbutton.TabIndex = 3;
             this.submitbutton.Text = "Submit";
             this.submitbutton.UseVisualStyleBackColor = true;
+            this.submitbutton.Click += new System.EventHandler(this.submitbutton_Click);
             // 
             // label4
             // 

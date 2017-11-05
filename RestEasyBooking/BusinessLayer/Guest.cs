@@ -39,7 +39,7 @@ namespace RestEasyBooking.BusinessLayer
             get { return _address; }
         }
 
-        public int GuestAccountNumber
+        public string GuestAccountNumber
         {
             get { return guestAccountNumber; }
         }
