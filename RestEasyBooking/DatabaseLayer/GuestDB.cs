@@ -191,9 +191,8 @@ namespace RestEasyBooking.DatabaseLayer
             SqlParameter intIdParam = new SqlParameter("@ID", SqlDbType.Int, 4, columnAttributes.ID);
             SqlParameter guestAccountParam = new SqlParameter("@GUESTACCOUNTNUMBER", SqlDbType.NVarChar, 10, columnAttributes.GuestAccountNumber);
             SqlParameter guestIdParam = new SqlParameter("@GUESTID", SqlDbType.NVarChar, 10, columnAttributes.ID);
-            SqlParameter bookIdParam = new SqlParameter("@BOOKID", SqlDbType.Int, 4, columnAttributes.BookID);
             SqlParameter refnumIdParam = new SqlParameter("@REFERENCENUMBERID", SqlDbType.Int, 4, columnAttributes.ID);
-            //All other columns
+            // All other columns
             SqlParameter nameParam = new SqlParameter("@NAME", SqlDbType.NVarChar, 50, columnAttributes.Name);
             SqlParameter phoneParam = new SqlParameter("@PHONE", SqlDbType.NVarChar, 15, columnAttributes.Phone);
             SqlParameter emailParam = new SqlParameter("@EMAIL", SqlDbType.NVarChar, 50, columnAttributes.Email);
@@ -374,6 +373,7 @@ namespace RestEasyBooking.DatabaseLayer
                     break;
             }
             
+            // TODO formatting
             string errorstring = "";
             try
             {
@@ -462,6 +462,7 @@ namespace RestEasyBooking.DatabaseLayer
             catch (Exception exc)
             {
                 cnMain.Close();
+                // TODO: format
                 MessageBox.Show(exc.Message + "  " + exc.StackTrace);
                 return false;
             }
