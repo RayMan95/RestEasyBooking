@@ -74,6 +74,7 @@
     <Compile Include="BusinessLayer\Guest.cs" />
     <Compile Include="BusinessLayer\GuestAccount.cs" />
     <Compile Include="BusinessLayer\Room.cs" />
+    <Compile Include="BusinessLayer\RoomController.cs" />
     <Compile Include="DatabaseLayer\BookingDB.cs" />
     <Compile Include="DatabaseLayer\DB.cs" />
     <Compile Include="DatabaseLayer\GuestDB.cs" />
@@ -156,6 +157,7 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <SsdtUnitTestVersion>3.1</SsdtUnitTestVersion>

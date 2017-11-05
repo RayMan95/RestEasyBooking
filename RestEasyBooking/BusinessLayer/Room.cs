@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,47 +9,56 @@ namespace RestEasyBooking.BusinessLayer
 {
     public class Room : Entity
     {
-        private bool occupied;
-        private Season _season;
+        private int id;
+        Collection<DateTime> bookedDays;
 
         #region Properties
-        public Season CurrentSeason
+        public int ID
         {
-            get { return _season; }
-            //set { _season = value; }
+            get { return id; }
         }
 
-        public bool Occupied
-        {
-            get { return occupied; }
-        }
+        //public bool Occupied
+        //{
+        //    get { return occupied; }
+        //}
         #endregion
 
-        public Room(Season season)
+        public Room(int Id)
         {
-            occupied = false;
-            _season = season;
+            //occupied = false;
+            id = Id;
+            bookedDays = new Collection<DateTime>();
         }
 
-        public void Occupy()
+        public void Book(DateTime startDate, DateTime endDate)
         {
-            occupied = true;
+            while (startDate.Day < endDate.Day)
+            {
+                bookedDays.Add(startDate);
+                startDate.AddDays(1);
+            }
         }
 
-        public int GetPrice()
+        public bool Occupied(DateTime startDate, DateTime endDate)
         {
-            if (_season == Season.Low)
+            foreach (DateTime bookedDate in bookedDays)
             {
-                return 550;
+                if (bookedDate.Day >= startDate.Day && bookedDate.Day <= endDate.Day)
+                    return true;
             }
-            else if (_season == Season.Mid)
+
+            return false;
+        }
+
+        public bool Occupied(DateTime date)
+        {
+            foreach (DateTime bookedDate in bookedDays)
             {
-                return 750;
+                if (bookedDate == date) return true;
             }
-            else
-            {
-                return 995;
-            }
+
+            return false;
         }
     }
 }

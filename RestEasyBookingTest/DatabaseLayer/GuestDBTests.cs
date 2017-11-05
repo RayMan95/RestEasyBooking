@@ -16,8 +16,6 @@ namespace RestEasyBooking.DatabaseLayer.Tests
         [TestMethod()]
         public void GuestDBTest()
         {
-            GuestDB guestDB = new GuestDB();
-            Collection<Guest> allGuests = guestDB.AllGuests;
         }
     }
 }
