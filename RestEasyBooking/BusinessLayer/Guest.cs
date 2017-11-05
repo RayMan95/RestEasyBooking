@@ -9,7 +9,7 @@ namespace RestEasyBooking.BusinessLayer
 {
     class Guest
     {
-        private int guestAccountNumber;
+        private string guestAccountNumber;
         private GuestAccount guestAccount;
         private string _name;
         private string _phoneNumber;
@@ -45,7 +45,7 @@ namespace RestEasyBooking.BusinessLayer
         }
         #endregion
 
-        public Guest(int accountNumber, string name, string phoneNum, string email, string address)
+        public Guest(string accountNumber, string name, string phoneNum, string email, string address)
         {
             guestAccountNumber = accountNumber;
             _name = name;
@@ -58,6 +58,15 @@ namespace RestEasyBooking.BusinessLayer
         public void AddBooking(Booking newBooking)
         {
             bookings.Add(newBooking);
+        }
+
+        public void setValues(string accountNumber, string name, string phoneNum, string email, string address)
+        {
+            guestAccountNumber = accountNumber;
+            _name = name;
+            _phoneNumber = phoneNum;
+            _email = email;
+            _address = address;
         }
 
         /**

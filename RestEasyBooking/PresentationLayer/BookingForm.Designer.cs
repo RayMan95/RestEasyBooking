@@ -32,15 +32,15 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.pricetextBox = new System.Windows.Forms.TextBox();
-            this.guestaccounttextBox = new System.Windows.Forms.TextBox();
             this.addbookingbutton = new System.Windows.Forms.Button();
             this.cancelbutton = new System.Windows.Forms.Button();
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.startdatebutton = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
+            this.guestaccounttextBox = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,29 +74,12 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Price";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(36, 240);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(135, 18);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Guest Account No";
-            // 
             // pricetextBox
             // 
             this.pricetextBox.Location = new System.Drawing.Point(187, 186);
             this.pricetextBox.Name = "pricetextBox";
             this.pricetextBox.Size = new System.Drawing.Size(181, 20);
             this.pricetextBox.TabIndex = 4;
-            // 
-            // guestaccounttextBox
-            // 
-            this.guestaccounttextBox.Location = new System.Drawing.Point(187, 238);
-            this.guestaccounttextBox.Name = "guestaccounttextBox";
-            this.guestaccounttextBox.Size = new System.Drawing.Size(181, 20);
-            this.guestaccounttextBox.TabIndex = 5;
             // 
             // addbookingbutton
             // 
@@ -107,6 +90,7 @@
             this.addbookingbutton.TabIndex = 6;
             this.addbookingbutton.Text = "Add";
             this.addbookingbutton.UseVisualStyleBackColor = true;
+            this.addbookingbutton.Click += new System.EventHandler(this.addbookingbutton_Click);
             // 
             // cancelbutton
             // 
@@ -117,6 +101,7 @@
             this.cancelbutton.TabIndex = 7;
             this.cancelbutton.Text = "Cancel";
             this.cancelbutton.UseVisualStyleBackColor = true;
+            this.cancelbutton.Click += new System.EventHandler(this.cancelbutton_Click);
             // 
             // dateTimePicker1
             // 
@@ -156,6 +141,23 @@
             this.label5.TabIndex = 11;
             this.label5.Text = "RestEasy";
             // 
+            // guestaccounttextBox
+            // 
+            this.guestaccounttextBox.Location = new System.Drawing.Point(187, 238);
+            this.guestaccounttextBox.Name = "guestaccounttextBox";
+            this.guestaccounttextBox.Size = new System.Drawing.Size(181, 20);
+            this.guestaccounttextBox.TabIndex = 5;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(36, 240);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(135, 18);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Guest Account No";
+            // 
             // BookingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -186,14 +188,14 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox pricetextBox;
-        private System.Windows.Forms.TextBox guestaccounttextBox;
         private System.Windows.Forms.Button addbookingbutton;
         private System.Windows.Forms.Button cancelbutton;
         private System.Windows.Forms.Button startdatebutton;
         private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox guestaccounttextBox;
+        private System.Windows.Forms.Label label4;
     }
 }

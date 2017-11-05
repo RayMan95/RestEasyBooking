@@ -43,6 +43,8 @@
             this.cancelbutton = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.phonenumbertextBox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -140,6 +142,7 @@
             this.addbutton.TabIndex = 10;
             this.addbutton.Text = "Add";
             this.addbutton.UseVisualStyleBackColor = true;
+            this.addbutton.Click += new System.EventHandler(this.addbutton_Click);
             // 
             // cancelbutton
             // 
@@ -150,6 +153,7 @@
             this.cancelbutton.TabIndex = 11;
             this.cancelbutton.Text = "Cancel";
             this.cancelbutton.UseVisualStyleBackColor = true;
+            this.cancelbutton.Click += new System.EventHandler(this.cancelbutton_Click);
             // 
             // pictureBox1
             // 
@@ -171,11 +175,30 @@
             this.label1.TabIndex = 13;
             this.label1.Text = "RestEasy";
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(30, 306);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(78, 18);
+            this.label2.TabIndex = 14;
+            this.label2.Text = "Phone No";
+            // 
+            // phonenumbertextBox
+            // 
+            this.phonenumbertextBox.Location = new System.Drawing.Point(149, 306);
+            this.phonenumbertextBox.Name = "phonenumbertextBox";
+            this.phonenumbertextBox.Size = new System.Drawing.Size(195, 20);
+            this.phonenumbertextBox.TabIndex = 15;
+            // 
             // GuestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(515, 389);
+            this.Controls.Add(this.phonenumbertextBox);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cancelbutton);
@@ -215,5 +238,7 @@
         private System.Windows.Forms.Button cancelbutton;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox phonenumbertextBox;
     }
 }

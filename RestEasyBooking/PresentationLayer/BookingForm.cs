@@ -14,6 +14,7 @@ namespace RestEasyBooking.PresentationLayer
     public partial class BookingForm : Form
     {
 
+        public bool BookingFormClosed = false;
         private GuestController guestController ;
         private Guest guest;
         private StartDateForm startDateForm;
@@ -37,6 +38,21 @@ namespace RestEasyBooking.PresentationLayer
             startDateForm = new StartDateForm();
             startDateForm.MdiParent = this;        // Setting the MDI Parent
             startDateForm.StartPosition = FormStartPosition.CenterParent;
+        }
+
+        private void addbookingbutton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cancelbutton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PopulateObject()
+        {
+            
         }
     }
 }

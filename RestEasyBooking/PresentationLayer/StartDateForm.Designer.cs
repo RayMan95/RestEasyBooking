@@ -39,6 +39,7 @@
             this.startdateCalendar.Margin = new System.Windows.Forms.Padding(7);
             this.startdateCalendar.Name = "startdateCalendar";
             this.startdateCalendar.TabIndex = 1;
+            this.startdateCalendar.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.startdateCalendar_DateChanged);
             // 
             // label1
             // 

@@ -21,5 +21,10 @@ namespace RestEasyBooking.PresentationLayer
         {
 
         }
+
+        private void startdateCalendar_DateChanged(object sender, DateRangeEventArgs e)
+        {
+
+        }
     }
 }
