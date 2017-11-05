@@ -80,9 +80,6 @@
     <Compile Include="DatabaseLayer\BookingDB.cs" />
     <Compile Include="DatabaseLayer\DB.cs" />
     <Compile Include="DatabaseLayer\GuestDB.cs" />
-    <Compile Include="PresentationLayer\FormTemp.cs">
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="PresentationLayer\BookingForm.cs">
       <SubType>Form</SubType>
     </Compile>
