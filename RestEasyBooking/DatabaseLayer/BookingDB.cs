@@ -18,8 +18,6 @@ namespace RestEasyBooking.DatabaseLayer
     public class BookingDB : DB
     {
         private Collection<Booking> allBookings;
-        private Collection<Guest> allGuests;
-
         private Collection<RoomDatesTuple> roomBookingSeed;
 
         #region Properties
@@ -37,7 +35,6 @@ namespace RestEasyBooking.DatabaseLayer
         public BookingDB() : base()
         {
             allBookings = new Collection<Booking>();
-            allGuests = new Collection<Guest>();
             roomBookingSeed = new Collection<RoomDatesTuple>();
 
             FillDataSet(sqlLocalBooking, tableBooking);

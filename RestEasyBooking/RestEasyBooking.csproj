@@ -74,6 +74,7 @@
     <Compile Include="BusinessLayer\Entity.cs" />
     <Compile Include="BusinessLayer\Guest.cs" />
     <Compile Include="BusinessLayer\GuestAccount.cs" />
+    <Compile Include="BusinessLayer\GuestController.cs" />
     <Compile Include="BusinessLayer\Room.cs" />
     <Compile Include="BusinessLayer\RoomController.cs" />
     <Compile Include="DatabaseLayer\BookingDB.cs" />
@@ -141,8 +142,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="RestEasyBooking.mdf" />
-    <Content Include="RestEasyBooking_log.ldf" />
+    <Content Include="RestEasyBooking.mdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="RestEasyBooking_log.ldf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup Condition="$(VisualStudioVersion) == '15.0'">
     <Reference Include="Microsoft.Data.Tools.Schema.Sql, Version=13.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">

@@ -9,40 +9,39 @@ using System.Windows.Forms;
 
 namespace RestEasyBooking.BusinessLayer
 {
-    public class BookingController
+    public class GuestController
     {
-        Collection<Booking> allBookings;
-        BookingDB bookingDB;
+        private Collection<Guest> allGuests;
+        GuestDB guestDB;
 
-        public BookingController()
+        public GuestController()
         {
-            allBookings = new Collection<Booking>();
-            bookingDB = new BookingDB();
-            allBookings = bookingDB.AllBookings;
+            guestDB = new GuestDB();
+            allGuests = guestDB.AllGuests;
         }
 
         #region Database Communication
-        public bool DataMaintenance(Booking booking, DB.DBOperation operation)
+        public bool DataMaintenance(Guest guest, DB.DBOperation operation)
         {
             //perform a given database operation to the dataset in meory; 
-            bookingDB.DataSetChange(booking, operation);
+            guestDB.DataSetChange(guest, operation);
             //perform operations on the collection
             try
             {
                 switch (operation)
                 {
                     case DB.DBOperation.Add:
-                        allBookings.Add(booking);
+                        allGuests.Add(guest);
                         break;
                     case DB.DBOperation.Edit:
-                        allBookings[FindIndex(booking)] = booking;
+                        allGuests[FindIndex(guest)] = guest;
                         break;
                     case DB.DBOperation.Delete:
-                        allBookings.RemoveAt(FindIndex(booking));
+                        allGuests.RemoveAt(FindIndex(guest));
                         break;
                 }
 
-                return bookingDB.UpdateDataSource(operation); // commit changes
+                return guestDB.UpdateDataSource(operation); // commit changes
             }
             catch (Exception exception)
             {
@@ -55,43 +54,39 @@ namespace RestEasyBooking.BusinessLayer
         #endregion
 
         #region Utility Methods
-        public Collection<Booking> FindByDate(DateTime startDate, DateTime endDate)
+        public Guest FindByAccountNumber(string accountNumber)
         {
-            Collection<Booking> bookings = new Collection<Booking>();
-
-            foreach (Booking booking in allBookings)
+            for (int i = 0; i < allGuests.Count; ++i)
             {
-                if (booking.StartDate == startDate && booking.EndDate == endDate)
-                    bookings.Add(booking);
-            }
-
-            return bookings;
-        }
-
-        public Booking FindByID(int Id)
-        {
-            for (int i = 0; i < allBookings.Count; ++i)
-            {
-                if (allBookings[i].ID == Id) return allBookings[i];
+                if (allGuests[i].GuestAccountNumber == accountNumber) return allGuests[i];
             }
 
             return null;
         }
 
-        public int FindIndex(Booking booking)
+        public Guest FindByID(int Id)
+        {
+            for (int i = 0; i < allGuests.Count; ++i)
+            {
+                if (allGuests[i].ID == Id) return allGuests[i];
+            }
+
+            return null;
+        }
+
+        public int FindIndex(Guest guest)
         {
             int counter = 0;
             bool found = false;
-            found = (booking.ID == allBookings[counter].ID); 
-            while (!(found) & counter < allBookings.Count - 1)
+            found = (guest.ID == allGuests[counter].ID);
+            while (!(found) & counter < allGuests.Count - 1)
             {
                 counter += 1;
-                found = (booking.ID == allBookings[counter].ID);
+                found = (guest.ID == allGuests[counter].ID);
             }
             if (found) return counter;
             else return -1;
         }
         #endregion
     }
-
 }

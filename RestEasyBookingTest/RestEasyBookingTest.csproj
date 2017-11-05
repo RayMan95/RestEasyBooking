@@ -51,6 +51,7 @@
     <Compile Include="BusinessLayer\BookingControllerTests.cs" />
     <Compile Include="BusinessLayer\BookingUnitTest.cs" />
     <Compile Include="BusinessLayer\GuestAccountTests.cs" />
+    <Compile Include="BusinessLayer\GuestControllerTests.cs" />
     <Compile Include="BusinessLayer\GuestTests.cs" />
     <Compile Include="BusinessLayer\RoomControllerTests.cs" />
     <Compile Include="BusinessLayer\RoomTests.cs" />

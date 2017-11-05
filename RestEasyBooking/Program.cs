@@ -32,21 +32,7 @@ namespace RestEasyBooking
 
             
 
-            //int id = 666;
-            //GuestAccount guestAccount = new GuestAccount("g666", 6661);
-            //string name = "666";
-            //string phoneNum = "666";
-            //string email = "666@goglogo.co.uk";
-            //string address = "666 Devils Lane, Hell, -1";
-
-            //Guest guest = new Guest(id, guestAccount, name, phoneNum, email, address)
-            //{
-            //    MyReferenceNumberDetails = new Entity.ReferenceNumberDetails()
-            //    {
-            //        ID = 666,
-            //        ReferenceNumber = "r6661"
-            //    }
-            //};
+            
 
             Console.WriteLine("YES");
         }
