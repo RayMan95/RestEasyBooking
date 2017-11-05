@@ -147,8 +147,8 @@ namespace RestEasyBooking.PresentationLayer
         private void makePaymentToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if(paymentForm == null)
-            { 
-
+            {
+                MakePaymentForm();
             }
             paymentForm.Show();
 

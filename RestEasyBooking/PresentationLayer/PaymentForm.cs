@@ -18,6 +18,7 @@ namespace RestEasyBooking.PresentationLayer
 
         private Guest guest;
         private ConfirmationLetter confirmLetter;
+        public bool paymentFormClosed = false;
         public PaymentForm()
         {
             InitializeComponent();
@@ -32,11 +33,27 @@ namespace RestEasyBooking.PresentationLayer
 
         private void submitbutton_Click(object sender, EventArgs e)
         {
+            
+            
+            
             if (confirmLetter == null)
             {
                 generateConfirmationLetter();
             }
             confirmLetter.Show();
+            paymentFormClosed = true;
+            ClearAll();
+            this.Close();
         }
+
+        private void ClearAll()
+        {
+            creditcardnotextBox.Text = "";
+            guestaccountnotextBox.Text = "";
+            nametextBox.Text = "";
+            surnametextBox.Text = "";
+        }
+
+
     }
 }
