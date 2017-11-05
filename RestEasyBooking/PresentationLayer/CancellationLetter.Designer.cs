@@ -155,6 +155,7 @@
             this.emailbutton.TabIndex = 16;
             this.emailbutton.Text = "Email";
             this.emailbutton.UseVisualStyleBackColor = true;
+            this.emailbutton.Click += new System.EventHandler(this.emailbutton_Click);
             // 
             // faxbutton
             // 
@@ -164,6 +165,7 @@
             this.faxbutton.TabIndex = 17;
             this.faxbutton.Text = "Fax";
             this.faxbutton.UseVisualStyleBackColor = true;
+            this.faxbutton.Click += new System.EventHandler(this.faxbutton_Click);
             // 
             // postbutton
             // 
@@ -173,6 +175,7 @@
             this.postbutton.TabIndex = 18;
             this.postbutton.Text = "Post";
             this.postbutton.UseVisualStyleBackColor = true;
+            this.postbutton.Click += new System.EventHandler(this.postbutton_Click);
             // 
             // refnotextBox
             // 

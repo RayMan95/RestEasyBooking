@@ -46,7 +46,7 @@
             this.faxbutton = new System.Windows.Forms.Button();
             this.postbutton = new System.Windows.Forms.Button();
             this.refnotextBox = new System.Windows.Forms.TextBox();
-            this.arrivaldatetextBox1 = new System.Windows.Forms.TextBox();
+            this.arrivaldatetextBox = new System.Windows.Forms.TextBox();
             this.departuredatetextBox = new System.Windows.Forms.TextBox();
             this.rateperdatetextBox = new System.Windows.Forms.TextBox();
             this.totalcosttextBox = new System.Windows.Forms.TextBox();
@@ -193,6 +193,7 @@
             this.emailbutton.TabIndex = 15;
             this.emailbutton.Text = "Email";
             this.emailbutton.UseVisualStyleBackColor = true;
+            this.emailbutton.Click += new System.EventHandler(this.emailbutton_Click);
             // 
             // faxbutton
             // 
@@ -202,6 +203,7 @@
             this.faxbutton.TabIndex = 16;
             this.faxbutton.Text = "Fax";
             this.faxbutton.UseVisualStyleBackColor = true;
+            this.faxbutton.Click += new System.EventHandler(this.faxbutton_Click);
             // 
             // postbutton
             // 
@@ -211,6 +213,7 @@
             this.postbutton.TabIndex = 17;
             this.postbutton.Text = "Post";
             this.postbutton.UseVisualStyleBackColor = true;
+            this.postbutton.Click += new System.EventHandler(this.postbutton_Click);
             // 
             // refnotextBox
             // 
@@ -219,12 +222,12 @@
             this.refnotextBox.Size = new System.Drawing.Size(181, 20);
             this.refnotextBox.TabIndex = 18;
             // 
-            // arrivaldatetextBox1
+            // arrivaldatetextBox
             // 
-            this.arrivaldatetextBox1.Location = new System.Drawing.Point(188, 199);
-            this.arrivaldatetextBox1.Name = "arrivaldatetextBox1";
-            this.arrivaldatetextBox1.Size = new System.Drawing.Size(181, 20);
-            this.arrivaldatetextBox1.TabIndex = 19;
+            this.arrivaldatetextBox.Location = new System.Drawing.Point(188, 199);
+            this.arrivaldatetextBox.Name = "arrivaldatetextBox";
+            this.arrivaldatetextBox.Size = new System.Drawing.Size(181, 20);
+            this.arrivaldatetextBox.TabIndex = 19;
             // 
             // departuredatetextBox
             // 
@@ -239,6 +242,7 @@
             this.rateperdatetextBox.Name = "rateperdatetextBox";
             this.rateperdatetextBox.Size = new System.Drawing.Size(181, 20);
             this.rateperdatetextBox.TabIndex = 21;
+           // this.rateperdatetextBox.TextChanged += new System.EventHandler(this.rateperdatetextBox_TextChanged);
             // 
             // totalcosttextBox
             // 
@@ -265,7 +269,7 @@
             this.Controls.Add(this.totalcosttextBox);
             this.Controls.Add(this.rateperdatetextBox);
             this.Controls.Add(this.departuredatetextBox);
-            this.Controls.Add(this.arrivaldatetextBox1);
+            this.Controls.Add(this.arrivaldatetextBox);
             this.Controls.Add(this.refnotextBox);
             this.Controls.Add(this.postbutton);
             this.Controls.Add(this.faxbutton);
@@ -310,7 +314,7 @@
         private System.Windows.Forms.Button faxbutton;
         private System.Windows.Forms.Button postbutton;
         private System.Windows.Forms.TextBox refnotextBox;
-        private System.Windows.Forms.TextBox arrivaldatetextBox1;
+        private System.Windows.Forms.TextBox arrivaldatetextBox;
         private System.Windows.Forms.TextBox departuredatetextBox;
         private System.Windows.Forms.TextBox rateperdatetextBox;
         private System.Windows.Forms.TextBox totalcosttextBox;

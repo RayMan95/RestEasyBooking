@@ -64,7 +64,7 @@
     <Compile Include="PresentationLayer\ConfirmationLetter.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PresentationLayer\ConfirmationLetter.Designer.cs">
+    <Compile Include="PresentationLayer\ConfirmationLetter.designer.cs">
       <DependentUpon>ConfirmationLetter.cs</DependentUpon>
     </Compile>
     <Compile Include="PresentationLayer\GuestForm.cs">

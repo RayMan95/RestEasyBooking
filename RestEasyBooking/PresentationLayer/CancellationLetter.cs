@@ -16,5 +16,20 @@ namespace RestEasyBooking.PresentationLayer
         {
             InitializeComponent();
         }
+
+        private void emailbutton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void faxbutton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void postbutton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

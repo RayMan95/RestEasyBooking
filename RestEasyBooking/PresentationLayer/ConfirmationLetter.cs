@@ -21,5 +21,34 @@ namespace RestEasyBooking.PresentationLayer
         {
 
         }
+
+        private void emailbutton_Click(object sender, EventArgs e)
+        {
+            ClearAll();
+            this.Close();
+        }
+
+        private void faxbutton_Click(object sender, EventArgs e)
+        {
+            ClearAll();
+            this.Close()
+        }
+
+        private void postbutton_Click(object sender, EventArgs e)
+        {
+            ClearAll();
+            this.Close();
+        }
+        private void ClearAll()
+        {
+            refnotextBox.Text = "";
+            arrivaldatetextBox.Text = "";
+            departuredatetextBox.Text = "";
+            totalcosttextBox.Text = "";
+            rateperdatetextBox.Text = "";
+
+        }
+
+
     }
 }
