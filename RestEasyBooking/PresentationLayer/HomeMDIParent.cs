@@ -20,7 +20,7 @@ namespace RestEasyBooking.PresentationLayer
         private StartDateForm startDateForm;
         private GuestForm employeeListForm;
         private PaymentForm paymentForm;
-        private GuestController guestController;
+       // private GuestController guestController;
 
         public HomeMDIParent()
         {
