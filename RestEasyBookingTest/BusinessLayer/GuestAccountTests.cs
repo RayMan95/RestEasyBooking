@@ -1,0 +1,32 @@
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RestEasyBooking.BusinessLayer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RestEasyBooking.BusinessLayer.Tests
+{
+    [TestClass()]
+    public class GuestAccountTests
+    {
+        [TestMethod()]
+        public void GuestAccountTest()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void AddReferenceNumberTest()
+        {
+            Assert.Fail();
+        }
+
+        [TestMethod()]
+        public void PaymentTest()
+        {
+            Assert.Fail();
+        }
+    }
+}

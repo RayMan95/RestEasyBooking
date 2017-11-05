@@ -7,20 +7,32 @@ using System.Threading.Tasks;
 
 namespace RestEasyBooking.BusinessLayer
 {
-    class GuestAccount
+    public class GuestAccount : Entity
     {
+        private string _guestAccountNumber;
         private double _totalBalance;
-        private Collection<string> referenceNumbers;
+        
 
-        public GuestAccount()
+        #region Properties
+        public string AccountNumber
         {
-            _totalBalance = 0;
-            referenceNumbers = new Collection<string>();
+            get { return _guestAccountNumber; }
         }
 
-        public double Payment(double amount, string refNum)
+        public double Balance
         {
-            referenceNumbers.Add(refNum);
+            get { return _totalBalance; }
+        }
+        #endregion
+
+        public GuestAccount(string guestAccountNumber, double amount)
+        {
+            _guestAccountNumber = guestAccountNumber;
+            _totalBalance = amount;
+        }
+
+        public double Payment(double amount)
+        {
             _totalBalance -= amount;
             return _totalBalance;
         }

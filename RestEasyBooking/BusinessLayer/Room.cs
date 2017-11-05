@@ -1,50 +1,64 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RestEasyBooking.BusinessLayer
 {
-    class Room
+    public class Room : Entity
     {
-        public enum Season
-        {
-            Low = 0,
-            Mid = 1,
-            High = 2
-        }
-
-        private bool occupied;
-        private Season _season;
+        private int id;
+        Collection<DateTime> bookedDays;
 
         #region Properties
-        public Season season
+        public int ID
         {
-            get { return _season; }
-            set { _season = value; }
+            get { return id; }
         }
+
+        //public bool Occupied
+        //{
+        //    get { return occupied; }
+        //}
         #endregion
 
-        public Room()
+        public Room(int Id)
         {
-            occupied = false;
+            //occupied = false;
+            id = Id;
+            bookedDays = new Collection<DateTime>();
         }
 
-        public int GetPrice()
+        public void Book(DateTime startDate, DateTime endDate)
         {
-            if (_season == Season.Low)
+            while (startDate.Day < endDate.Day)
             {
-                return 550;
+                bookedDays.Add(startDate);
+                startDate.AddDays(1);
             }
-            else if (_season == Season.Mid)
+        }
+
+        public bool Occupied(DateTime startDate, DateTime endDate)
+        {
+            foreach (DateTime bookedDate in bookedDays)
             {
-                return 750;
+                if (bookedDate.Day >= startDate.Day && bookedDate.Day <= endDate.Day)
+                    return true;
             }
-            else
+
+            return false;
+        }
+
+        public bool Occupied(DateTime date)
+        {
+            foreach (DateTime bookedDate in bookedDays)
             {
-                return 995;
+                if (bookedDate == date) return true;
             }
+
+            return false;
         }
     }
 }

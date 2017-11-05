@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace RestEasyBooking.BusinessLayer
 {
-    class Booking
+    public class Booking : Entity
     {
         private int _id;
         private DateTime startDate;
         private DateTime endDate;
-        private string referenceNumber;
+        private GuestDetails guestDetails;
+        private ReferenceNumberDetails _referenceNumberDetails;
         private int roomID;
-        private long guestAccountNumber;
 
         private double balance;
         private bool paidDeposit;
@@ -34,34 +34,46 @@ namespace RestEasyBooking.BusinessLayer
             get { return endDate; }
         }
 
-        public int RoomNumber
+        public int RoomID
         {
-            get { return roomID + 1; }
+            get { return roomID; }
         }
 
-        public string ReferenceNumber
+        public double Balance
         {
-            get { return referenceNumber; }
+            get { return balance; }
         }
 
-        public long GuestAccountNumber
+        public bool PaidDeposit
         {
-            get { return guestAccountNumber; }
-            set { guestAccountNumber = value; }
+            get { return paidDeposit; }
+        }
+
+        public ReferenceNumberDetails MyReferenceNumberDetails
+        {
+            get { return _referenceNumberDetails; }
+            set { _referenceNumberDetails = value; }
+        }
+
+        public GuestDetails MyGuestDetails
+        {
+            get { return guestDetails; }
+            set { guestDetails = value; }
         }
         #endregion
 
-        public Booking(int id, DateTime start, DateTime end, int room_id, long guest_acc_num, 
-            double cost)
+        public Booking(int id, DateTime start, DateTime end, int room_id,
+            double curr_balance, bool paidDep)
         {
             _id = id;
             startDate = start;
             endDate = end;
             roomID = room_id;
-            guestAccountNumber = guest_acc_num;
 
-            balance = cost;
-            paidDeposit = false;
+            balance = curr_balance;
+            paidDeposit = paidDep;
+
+            //_referenceNumberDetails = new ReferenceNumberDetails();
         }
 
         public double Payment(double amount, bool deposit)

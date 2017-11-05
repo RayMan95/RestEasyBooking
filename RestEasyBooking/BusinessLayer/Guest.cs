@@ -7,10 +7,12 @@ using System.Threading.Tasks;
 
 namespace RestEasyBooking.BusinessLayer
 {
-    class Guest
+
+    public class Guest : Entity
     {
-        private string guestAccountNumber;
-        private GuestAccount guestAccount;
+        private int guestID;
+        private GuestAccount _guestAccount;
+        private ReferenceNumberDetails referenceNumberDetails;
         private string _name;
         private string _phoneNumber;
         private string _email;
@@ -39,15 +41,32 @@ namespace RestEasyBooking.BusinessLayer
             get { return _address; }
         }
 
+        public ReferenceNumberDetails MyReferenceNumberDetails
+        {
+            get { return referenceNumberDetails; }
+            set { referenceNumberDetails = value; }
+        }
+
         public string GuestAccountNumber
         {
-            get { return guestAccountNumber; }
+            get { return _guestAccount.AccountNumber; }
+        }
+
+        public double Balance
+        {
+            get { return _guestAccount.Balance; }
+        }
+
+        public int ID
+        {
+            get { return guestID; }
         }
         #endregion
 
-        public Guest(string accountNumber, string name, string phoneNum, string email, string address)
+        public Guest(int guestid, GuestAccount guestAcc, string name, string phoneNum, string email, string address)
         {
-            guestAccountNumber = accountNumber;
+            guestID = guestid;
+            _guestAccount = guestAcc;
             _name = name;
             _phoneNumber = phoneNum;
             _email = email;
@@ -58,15 +77,6 @@ namespace RestEasyBooking.BusinessLayer
         public void AddBooking(Booking newBooking)
         {
             bookings.Add(newBooking);
-        }
-
-        public void setValues(string accountNumber, string name, string phoneNum, string email, string address)
-        {
-            guestAccountNumber = accountNumber;
-            _name = name;
-            _phoneNumber = phoneNum;
-            _email = email;
-            _address = address;
         }
 
         /**
@@ -96,9 +106,10 @@ namespace RestEasyBooking.BusinessLayer
             }
         }
 
-        public double Payment(double amount, string ref_num)
+        public double Payment(double amount, ReferenceNumberDetails ref_num)
         {
-            return guestAccount.Payment(amount, ref_num);
+            referenceNumberDetails = ref_num;
+            return _guestAccount.Payment(amount);
         }
     }
 }
