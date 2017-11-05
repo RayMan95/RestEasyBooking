@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestEasyBooking.BusinessLayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -13,6 +14,13 @@ namespace RestEasyBooking.PresentationLayer
     public partial class HomeMDIParent : Form
     {
         private int childFormNumber = 0;
+
+        private BookingForm bookingForm;
+        private GuestForm guestForm;
+        private StartDateForm startDateForm;
+        private GuestForm employeeListForm;
+        private PaymentForm paymentForm;
+        private GuestController guestController;
 
         public HomeMDIParent()
         {
@@ -106,7 +114,34 @@ namespace RestEasyBooking.PresentationLayer
 
         private void addToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (bookingForm == null)
+            {
+                CreateNewBookingForm();
+            }
+            bookingForm.Show();
 
+        }
+
+        private void CreateNewBookingForm()
+        {
+            bookingForm = new BookingForm();
+            bookingForm.MdiParent = this;        // Setting the MDI Parent
+            bookingForm.StartPosition = FormStartPosition.CenterParent;
+        }
+
+        private void addNewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (guestForm == null)
+            {
+                CreateNewGuestForm();
+            }
+            guestForm.Show();
+        }
+        private void CreateNewGuestForm()
+        {
+            guestForm = new GuestForm();
+            guestForm.MdiParent = this;        // Setting the MDI Parent
+            guestForm.StartPosition = FormStartPosition.CenterParent;
         }
     }
 }

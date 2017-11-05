@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestEasyBooking.BusinessLayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,30 @@ namespace RestEasyBooking.PresentationLayer
 {
     public partial class BookingForm : Form
     {
+
+        private GuestController guestController ;
+        private Guest guest;
+        private StartDateForm startDateForm;
+       
         public BookingForm()
         {
             InitializeComponent();
+        }
+
+        private void startdatebutton_Click(object sender, EventArgs e)
+        {
+            if (startDateForm == null)
+            {
+                selectDate();
+            }
+            startDateForm.Show();
+
+        }
+        private void selectDate()
+        {
+            startDateForm = new StartDateForm();
+            startDateForm.MdiParent = this;        // Setting the MDI Parent
+            startDateForm.StartPosition = FormStartPosition.CenterParent;
         }
     }
 }

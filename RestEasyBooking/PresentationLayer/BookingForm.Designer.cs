@@ -144,6 +144,7 @@
             this.startdatebutton.Size = new System.Drawing.Size(75, 35);
             this.startdatebutton.TabIndex = 8;
             this.startdatebutton.UseVisualStyleBackColor = true;
+            this.startdatebutton.Click += new System.EventHandler(this.startdatebutton_Click);
             // 
             // label5
             // 

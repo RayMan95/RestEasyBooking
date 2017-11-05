@@ -303,4 +303,10 @@
         jOqBTw2VrKqQCuEJzyTgJ6mxE55hwE9SY6fJe9zj/j9WxW7grFOWswAAAABJRU5ErkJggg==
 </value>
   </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>This Letter serves as a confirmation of your cancellation of a booking with RestEasy
+hotel. You will be refunded fully if the hotel received your cancellation latter
+before 20 days of your suppoded arrival date, later then that you will receive 50%.
+your datails are as follows.</value>
+  </data>
 </root>

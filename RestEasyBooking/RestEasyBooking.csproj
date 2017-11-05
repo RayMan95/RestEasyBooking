@@ -48,6 +48,7 @@
     <Compile Include="BusinessLayer\Booking.cs" />
     <Compile Include="BusinessLayer\Guest.cs" />
     <Compile Include="BusinessLayer\GuestAccount.cs" />
+    <Compile Include="BusinessLayer\GuestController.cs" />
     <Compile Include="BusinessLayer\Room.cs" />
     <Compile Include="PresentationLayer\BookingForm.cs">
       <SubType>Form</SubType>
