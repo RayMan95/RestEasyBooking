@@ -48,6 +48,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BusinessLayer\BookingControllerTests.cs" />
     <Compile Include="BusinessLayer\BookingUnitTest.cs" />
     <Compile Include="BusinessLayer\GuestAccountTests.cs" />
     <Compile Include="BusinessLayer\GuestTests.cs" />

@@ -53,9 +53,7 @@ namespace RestEasyBooking.DatabaseLayer
             //Declare references to a myRow object and each relevant object
             DataRow myRow = null;
             Booking booking;
-
-
-
+            
             //READ from Booking table
             foreach (DataRow myRow_loopVariable in dsMain.Tables[tableBooking].Rows)
             {
