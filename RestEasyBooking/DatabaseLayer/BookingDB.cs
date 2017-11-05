@@ -9,6 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+// typedefs for convenience
+using DatesTuple = System.Tuple<System.DateTime, System.DateTime>;
+using RoomDatesTuple = System.Tuple<int, System.Collections.ObjectModel.Collection<System.Tuple<System.DateTime, System.DateTime>>>;
+
 namespace RestEasyBooking.DatabaseLayer
 {
     public class BookingDB : DB
@@ -16,22 +20,25 @@ namespace RestEasyBooking.DatabaseLayer
         private Collection<Booking> allBookings;
         private Collection<Guest> allGuests;
 
+        private Collection<RoomDatesTuple> roomBookingSeed;
+
         #region Properties
         public Collection<Booking> AllBookings
         {
             get { return allBookings; }
         }
 
-        //public Collection<Guest> AllGuests
-        //{
-        //    get { return allGuests; }
-        //}
+        public Collection<RoomDatesTuple> RoomBookingSeed
+        {
+            get { return roomBookingSeed; }
+        }
         #endregion
 
         public BookingDB() : base()
         {
             allBookings = new Collection<Booking>();
             allGuests = new Collection<Guest>();
+            roomBookingSeed = new Collection<RoomDatesTuple>();
 
             FillDataSet(sqlLocalBooking, tableBooking);
             FillDataSet(sqlLocalGuest, tableGuest);
@@ -47,7 +54,7 @@ namespace RestEasyBooking.DatabaseLayer
             DataRow myRow = null;
             Booking booking;
 
-            //string referenceNum;
+
 
             //READ from Booking table
             foreach (DataRow myRow_loopVariable in dsMain.Tables[tableBooking].Rows)
@@ -58,8 +65,8 @@ namespace RestEasyBooking.DatabaseLayer
                     // collect attributes
                     int id = Convert.ToInt32(myRow[columnAttributes.ID]);
                     int guestid = Convert.ToInt32(myRow[columnAttributes.GuestID]);
-                    //DateTime startDate = Convert.ToDateTime(myRow[columnAttributes.StartDate]);
-                    //DateTime endDate = Convert.ToDateTime(myRow[columnAttributes.EndDate]);
+                    DateTime startDate = Convert.ToDateTime(myRow[columnAttributes.StartDate]);
+                    DateTime endDate = Convert.ToDateTime(myRow[columnAttributes.EndDate]);
                     int refNumId = Convert.ToInt32(myRow[columnAttributes.ReferenceNumberId]);
                     int roomId = Convert.ToInt32(myRow[columnAttributes.RoomID]);
                     double balance = Convert.ToDouble(myRow[columnAttributes.Balance]);
@@ -87,13 +94,27 @@ namespace RestEasyBooking.DatabaseLayer
                     };
 
                     // Create booking instance
-                    booking = new Booking(id, new DateTime(), new DateTime(), roomId, balance, paidDeposit)
+                    booking = new Booking(id, startDate, endDate, roomId, balance, paidDeposit)
                     {
                         MyReferenceNumberDetails = referenceNumberDetails,
                         MyGuestDetails = guestDetails
                     };
 
                     allBookings.Add(booking);
+
+                    bool added = false;
+                    DatesTuple dates = new DatesTuple(startDate, endDate);
+                    foreach (RoomDatesTuple roomToDates in roomBookingSeed)
+                    {
+                        // room already in seed
+                        if (roomToDates.Item1 == roomId)
+                        {
+                            roomToDates.Item2.Add(dates);
+                            added = true;
+                        }
+                    }
+                    if (!added) roomBookingSeed.Add(new RoomDatesTuple(roomId,
+                            new Collection<DatesTuple>() { dates }));
                 }
             }
         }

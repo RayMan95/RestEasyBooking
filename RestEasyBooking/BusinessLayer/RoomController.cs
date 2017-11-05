@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RestEasyBooking.DatabaseLayer;
 
+// typedefs for convenience
 using DatesTuple = System.Tuple<System.DateTime, System.DateTime>;
 using RoomDatesTuple = System.Tuple<int, System.Collections.ObjectModel.Collection<System.Tuple<System.DateTime, System.DateTime>>>;
 
