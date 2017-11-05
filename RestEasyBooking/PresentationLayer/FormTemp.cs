@@ -14,7 +14,7 @@ namespace RestEasyBooking.PresentationLayer
     {
         public FormTemp()
         {
-            InitializeComponent();
+            //InitializeComponent();
         }
     }
 }

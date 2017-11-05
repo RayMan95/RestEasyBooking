@@ -29,7 +29,7 @@ namespace RestEasyBooking.PresentationLayer
         private void PopulateObject()
         {
 
-            guest.setValues(accounttextBox.Text, nametextBox.Text, phonenumbertextBox.Text ,emailtextBox.Text, addresstextBox.Text);
+            //guest.setValues(accounttextBox.Text, nametextBox.Text, phonenumbertextBox.Text ,emailtextBox.Text, addresstextBox.Text);
 
                           
 

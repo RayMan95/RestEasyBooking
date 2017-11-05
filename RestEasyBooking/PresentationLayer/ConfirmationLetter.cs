@@ -31,7 +31,7 @@ namespace RestEasyBooking.PresentationLayer
         private void faxbutton_Click(object sender, EventArgs e)
         {
             ClearAll();
-            this.Close()
+            this.Close();
         }
 
         private void postbutton_Click(object sender, EventArgs e)
