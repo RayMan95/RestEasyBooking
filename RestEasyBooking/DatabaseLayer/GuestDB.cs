@@ -35,9 +35,7 @@ namespace RestEasyBooking.DatabaseLayer
 
             PopulateCollections();
         }
-
         
-
         public override void PopulateCollections()
         {
             //Declare references to a myRow object and each relevant object
@@ -77,7 +75,7 @@ namespace RestEasyBooking.DatabaseLayer
                             }
                         }
 
-                        guestAcc = new GuestAccount(guestAccountNumber, amount); // TODO check
+                        guestAcc = new GuestAccount(guestAccountNumber, amount);
 
                         myRow = myRow_loopVariable; // back to Guest table
 
@@ -118,6 +116,7 @@ namespace RestEasyBooking.DatabaseLayer
         #region Database Operations CRUD --- Add the object's values to the database
         public bool DataSetChange(Guest guest, DB.DBOperation operation)
         {
+            
             DataRow aRow = null;
             switch (operation)
             {
@@ -282,6 +281,7 @@ namespace RestEasyBooking.DatabaseLayer
 
         private string CreateCommand(DBOperation operation, string table)
         {
+
             switch (table)
             {
                 case tableGuest:

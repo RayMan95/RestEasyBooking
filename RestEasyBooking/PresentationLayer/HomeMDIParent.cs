@@ -142,7 +142,7 @@ namespace RestEasyBooking.PresentationLayer
         }
         private void CreateNewGuestForm()
         {
-            guestForm = new GuestForm();
+            guestForm = new GuestForm(null, guestController, GuestForm.FormStates.Add);
             guestForm.MdiParent = this;        // Setting the MDI Parent
             guestForm.StartPosition = FormStartPosition.CenterParent;
         }

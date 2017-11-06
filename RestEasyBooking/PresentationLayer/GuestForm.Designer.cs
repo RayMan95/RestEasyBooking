@@ -45,6 +45,12 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.phonenumbertextBox = new System.Windows.Forms.TextBox();
+            this.idTextBox = new System.Windows.Forms.TextBox();
+            this.idLabel = new System.Windows.Forms.Label();
+            this.idValidLabel = new System.Windows.Forms.Label();
+            this.accountValidLabel = new System.Windows.Forms.Label();
+            this.phoneValidLabel = new System.Windows.Forms.Label();
+            this.emailValidLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,7 +58,7 @@
             // 
             this.namelabel.AutoSize = true;
             this.namelabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.namelabel.Location = new System.Drawing.Point(30, 84);
+            this.namelabel.Location = new System.Drawing.Point(29, 160);
             this.namelabel.Name = "namelabel";
             this.namelabel.Size = new System.Drawing.Size(48, 18);
             this.namelabel.TabIndex = 0;
@@ -60,7 +66,8 @@
             // 
             // nametextBox
             // 
-            this.nametextBox.Location = new System.Drawing.Point(149, 82);
+            this.nametextBox.Location = new System.Drawing.Point(148, 158);
+            this.nametextBox.MaxLength = 25;
             this.nametextBox.Name = "nametextBox";
             this.nametextBox.Size = new System.Drawing.Size(195, 20);
             this.nametextBox.TabIndex = 1;
@@ -69,7 +76,7 @@
             // 
             this.surnamelabel.AutoSize = true;
             this.surnamelabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.surnamelabel.Location = new System.Drawing.Point(30, 133);
+            this.surnamelabel.Location = new System.Drawing.Point(29, 196);
             this.surnamelabel.Name = "surnamelabel";
             this.surnamelabel.Size = new System.Drawing.Size(71, 18);
             this.surnamelabel.TabIndex = 2;
@@ -77,7 +84,8 @@
             // 
             // surnametextBox
             // 
-            this.surnametextBox.Location = new System.Drawing.Point(149, 131);
+            this.surnametextBox.Location = new System.Drawing.Point(148, 194);
+            this.surnametextBox.MaxLength = 25;
             this.surnametextBox.Name = "surnametextBox";
             this.surnametextBox.Size = new System.Drawing.Size(195, 20);
             this.surnametextBox.TabIndex = 3;
@@ -86,7 +94,7 @@
             // 
             this.emaillabel.AutoSize = true;
             this.emaillabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.emaillabel.Location = new System.Drawing.Point(30, 171);
+            this.emaillabel.Location = new System.Drawing.Point(29, 270);
             this.emaillabel.Name = "emaillabel";
             this.emaillabel.Size = new System.Drawing.Size(46, 18);
             this.emaillabel.TabIndex = 4;
@@ -94,7 +102,8 @@
             // 
             // emailtextBox
             // 
-            this.emailtextBox.Location = new System.Drawing.Point(149, 169);
+            this.emailtextBox.Location = new System.Drawing.Point(148, 268);
+            this.emailtextBox.MaxLength = 50;
             this.emailtextBox.Name = "emailtextBox";
             this.emailtextBox.Size = new System.Drawing.Size(195, 20);
             this.emailtextBox.TabIndex = 5;
@@ -103,7 +112,7 @@
             // 
             this.addresslabel.AutoSize = true;
             this.addresslabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addresslabel.Location = new System.Drawing.Point(30, 219);
+            this.addresslabel.Location = new System.Drawing.Point(29, 306);
             this.addresslabel.Name = "addresslabel";
             this.addresslabel.Size = new System.Drawing.Size(110, 18);
             this.addresslabel.TabIndex = 6;
@@ -111,7 +120,8 @@
             // 
             // addresstextBox
             // 
-            this.addresstextBox.Location = new System.Drawing.Point(149, 217);
+            this.addresstextBox.Location = new System.Drawing.Point(148, 304);
+            this.addresstextBox.MaxLength = 100;
             this.addresstextBox.Name = "addresstextBox";
             this.addresstextBox.Size = new System.Drawing.Size(195, 20);
             this.addresstextBox.TabIndex = 7;
@@ -120,7 +130,7 @@
             // 
             this.accountlabel.AutoSize = true;
             this.accountlabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.accountlabel.Location = new System.Drawing.Point(30, 272);
+            this.accountlabel.Location = new System.Drawing.Point(29, 123);
             this.accountlabel.Name = "accountlabel";
             this.accountlabel.Size = new System.Drawing.Size(89, 18);
             this.accountlabel.TabIndex = 8;
@@ -128,7 +138,8 @@
             // 
             // accounttextBox
             // 
-            this.accounttextBox.Location = new System.Drawing.Point(149, 270);
+            this.accounttextBox.Location = new System.Drawing.Point(148, 121);
+            this.accounttextBox.MaxLength = 10;
             this.accounttextBox.Name = "accounttextBox";
             this.accounttextBox.Size = new System.Drawing.Size(195, 20);
             this.accounttextBox.TabIndex = 9;
@@ -136,7 +147,7 @@
             // addbutton
             // 
             this.addbutton.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addbutton.Location = new System.Drawing.Point(33, 354);
+            this.addbutton.Location = new System.Drawing.Point(20, 364);
             this.addbutton.Name = "addbutton";
             this.addbutton.Size = new System.Drawing.Size(75, 23);
             this.addbutton.TabIndex = 10;
@@ -147,7 +158,7 @@
             // cancelbutton
             // 
             this.cancelbutton.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cancelbutton.Location = new System.Drawing.Point(400, 354);
+            this.cancelbutton.Location = new System.Drawing.Point(387, 364);
             this.cancelbutton.Name = "cancelbutton";
             this.cancelbutton.Size = new System.Drawing.Size(75, 23);
             this.cancelbutton.TabIndex = 11;
@@ -159,7 +170,7 @@
             // 
             this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBox1.Location = new System.Drawing.Point(1, 1);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(100, 50);
             this.pictureBox1.TabIndex = 12;
@@ -169,7 +180,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Arial", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(174, 9);
+            this.label1.Location = new System.Drawing.Point(207, 12);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(119, 29);
             this.label1.TabIndex = 13;
@@ -179,7 +190,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(30, 306);
+            this.label2.Location = new System.Drawing.Point(29, 229);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(78, 18);
             this.label2.TabIndex = 14;
@@ -187,16 +198,74 @@
             // 
             // phonenumbertextBox
             // 
-            this.phonenumbertextBox.Location = new System.Drawing.Point(149, 306);
+            this.phonenumbertextBox.Location = new System.Drawing.Point(148, 229);
+            this.phonenumbertextBox.MaxLength = 15;
             this.phonenumbertextBox.Name = "phonenumbertextBox";
             this.phonenumbertextBox.Size = new System.Drawing.Size(195, 20);
             this.phonenumbertextBox.TabIndex = 15;
+            // 
+            // idTextBox
+            // 
+            this.idTextBox.Location = new System.Drawing.Point(148, 85);
+            this.idTextBox.MaxLength = 4;
+            this.idTextBox.Name = "idTextBox";
+            this.idTextBox.Size = new System.Drawing.Size(195, 20);
+            this.idTextBox.TabIndex = 17;
+            // 
+            // idLabel
+            // 
+            this.idLabel.AutoSize = true;
+            this.idLabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.idLabel.Location = new System.Drawing.Point(29, 87);
+            this.idLabel.Name = "idLabel";
+            this.idLabel.Size = new System.Drawing.Size(23, 18);
+            this.idLabel.TabIndex = 16;
+            this.idLabel.Text = "ID";
+            // 
+            // idValidLabel
+            // 
+            this.idValidLabel.AutoSize = true;
+            this.idValidLabel.Location = new System.Drawing.Point(349, 90);
+            this.idValidLabel.Name = "idValidLabel";
+            this.idValidLabel.Size = new System.Drawing.Size(0, 13);
+            this.idValidLabel.TabIndex = 18;
+            // 
+            // accountValidLabel
+            // 
+            this.accountValidLabel.AutoSize = true;
+            this.accountValidLabel.Location = new System.Drawing.Point(350, 127);
+            this.accountValidLabel.Name = "accountValidLabel";
+            this.accountValidLabel.Size = new System.Drawing.Size(0, 13);
+            this.accountValidLabel.TabIndex = 19;
+            // 
+            // phoneValidLabel
+            // 
+            this.phoneValidLabel.AutoSize = true;
+            this.phoneValidLabel.Location = new System.Drawing.Point(350, 235);
+            this.phoneValidLabel.Name = "phoneValidLabel";
+            this.phoneValidLabel.Size = new System.Drawing.Size(0, 13);
+            this.phoneValidLabel.TabIndex = 20;
+            this.phoneValidLabel.Click += new System.EventHandler(this.phoneValidLabel_Click);
+            // 
+            // emailValidLabel
+            // 
+            this.emailValidLabel.AutoSize = true;
+            this.emailValidLabel.Location = new System.Drawing.Point(350, 274);
+            this.emailValidLabel.Name = "emailValidLabel";
+            this.emailValidLabel.Size = new System.Drawing.Size(0, 13);
+            this.emailValidLabel.TabIndex = 21;
             // 
             // GuestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(515, 389);
+            this.ClientSize = new System.Drawing.Size(515, 400);
+            this.Controls.Add(this.emailValidLabel);
+            this.Controls.Add(this.phoneValidLabel);
+            this.Controls.Add(this.accountValidLabel);
+            this.Controls.Add(this.idValidLabel);
+            this.Controls.Add(this.idTextBox);
+            this.Controls.Add(this.idLabel);
             this.Controls.Add(this.phonenumbertextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -240,5 +309,11 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox phonenumbertextBox;
+        private System.Windows.Forms.TextBox idTextBox;
+        private System.Windows.Forms.Label idLabel;
+        private System.Windows.Forms.Label idValidLabel;
+        private System.Windows.Forms.Label accountValidLabel;
+        private System.Windows.Forms.Label phoneValidLabel;
+        private System.Windows.Forms.Label emailValidLabel;
     }
 }

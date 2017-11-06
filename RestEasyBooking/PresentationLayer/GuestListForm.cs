@@ -14,19 +14,9 @@ namespace RestEasyBooking.PresentationLayer
 {
     public partial class GuestListForm : Form
     {
-        public enum FormStates
-        {
-            View = 0,
-            Add = 1,
-            Edit = 2,
-            Delete = 3
-        }
-
         public bool listFormClosed = false;
         private GuestController guestController;
-        private Guest guest;
         private Collection<Guest> allGuests;
-        private FormStates state;
 
         public GuestListForm(GuestController gController)
         {
@@ -36,7 +26,7 @@ namespace RestEasyBooking.PresentationLayer
             this.Load += GuestListForm_Load;
             this.Activated += GuestListForm_Activated;
             this.FormClosed += GuestListForm_FormClosed;
-            state = FormStates.View;
+            this.AutoSize = true;
         }
 
         private void GuestListForm_Load(object sender, EventArgs e)
@@ -51,50 +41,95 @@ namespace RestEasyBooking.PresentationLayer
 
         private void GuestListForm_Activated(object sender, EventArgs e)
         {
-            guestListView.View = View.Details;
-            setUpGuestListView();
-            ShowAll(false);
+            SetUpDataGridView();
 
         }
 
-        public void setUpGuestListView()
+        public void SetUpDataGridView()
         {
-            guestListView.Columns.Insert(0, "ID", 120, HorizontalAlignment.Left);
-            guestListView.Columns.Insert(1, "GuestAccountNumber", 120, HorizontalAlignment.Left);
-            guestListView.Columns.Insert(2, "Balance", 100, HorizontalAlignment.Left);
-            guestListView.Columns.Insert(3, "Name", 150, HorizontalAlignment.Left);
-            guestListView.Columns.Insert(4, "Phone", 100, HorizontalAlignment.Left);
-            guestListView.Columns.Insert(5, "Email", 100, HorizontalAlignment.Left);
-            guestListView.Columns.Insert(6, "Address", 150, HorizontalAlignment.Left);
+            // Formatting
+            guestDataGridView.RowsDefaultCellStyle.BackColor = Color.Bisque;
+            guestDataGridView.AlternatingRowsDefaultCellStyle.BackColor = Color.Beige;
+            guestDataGridView.CellBorderStyle = DataGridViewCellBorderStyle.None;
 
+            guestDataGridView.DefaultCellStyle.SelectionBackColor = Color.LightBlue;
+            guestDataGridView.DefaultCellStyle.SelectionForeColor = Color.Black;
 
-            ListViewItem guestDetails;
+            guestDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            guestDataGridView.AllowUserToResizeColumns = false;
+            guestDataGridView.AutoSize = true;
+            guestDataGridView.CellClick += GuestDataGridView_CellClick;
 
+            // Columns
+            guestDataGridView.ColumnCount = 7;
+            guestDataGridView.Columns[0].Name = "ID";
+            guestDataGridView.Columns[1].Name = "GuestAccountNumber";
+            guestDataGridView.Columns[0].ReadOnly = true;
+            guestDataGridView.Columns[1].ReadOnly = true;
+            guestDataGridView.Columns[2].Name = "Balance";
+            guestDataGridView.Columns[3].Name = "Name";
+            guestDataGridView.Columns[4].Name = "Phone";
+            guestDataGridView.Columns[5].Name = "Email";
+            guestDataGridView.Columns[6].Name = "Address";
+            // Button Columns
+            DataGridViewButtonColumn editGridViewButtonColumn = new DataGridViewButtonColumn();
+            guestDataGridView.Columns.Add(editGridViewButtonColumn);
+            editGridViewButtonColumn.Text = "Edit";
+            editGridViewButtonColumn.Name = "Edit";
+            editGridViewButtonColumn.UseColumnTextForButtonValue = true;
+
+            DataGridViewButtonColumn deleteGridViewButtonColumn = new DataGridViewButtonColumn();
+            guestDataGridView.Columns.Add(deleteGridViewButtonColumn);
+            deleteGridViewButtonColumn.Text = "Delete";
+            deleteGridViewButtonColumn.Name = "Delete";
+            deleteGridViewButtonColumn.UseColumnTextForButtonValue = true;
+
+            // Rows
             foreach (Guest g in allGuests)
             {
-                guestDetails = new ListViewItem
-                {
-                    Text = g.ID.ToString()
-                };
-                guestDetails.SubItems.Add(g.GuestAccountNumber);
-                guestDetails.SubItems.Add(g.Balance.ToString());
-                guestDetails.SubItems.Add(g.Name);
-                guestDetails.SubItems.Add(g.PhoneNumber);
-                guestDetails.SubItems.Add(g.Email);
-                guestDetails.SubItems.Add(g.Address);
-
-                guestListView.Items.Add(guestDetails);
+                guestDataGridView.Rows.Add(new string[] {g.ID.ToString(), g.GuestAccountNumber, g.Balance.ToString(), g.Name,
+                    g.PhoneNumber, g.Email, g.Address});
             }
-
-            guestListView.Refresh();
-            guestListView.GridLines = true;
-
         }
 
-        private void ShowAll(bool value)
+        private void GuestDataGridView_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            
+            if (e.ColumnIndex == 7) // Edit
+            {
+                Guest guestToEdit = allGuests[e.RowIndex];
+                GuestForm guestForm = new GuestForm(guestToEdit, guestController, GuestForm.FormStates.Edit);
+                //guestForm.TopLevel = false;
+                guestForm.ShowDialog(this);
+                //guestForm.Owner = this;
 
+            }
+
+            else if (e.ColumnIndex == 8) // Delete
+            {
+                Guest guestToDelete = allGuests[e.RowIndex];
+                var confirmResult = MessageBox.Show("Are you sure to delete this Guest Account?",
+                                     "Confirm Delete Guest Record",
+                                     MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.Yes)
+                {
+                    try
+                    {
+                        guestController.DataMaintenance(guestToDelete, DatabaseLayer.DB.DBOperation.Delete);
+                        guestDataGridView.Rows.RemoveAt(e.RowIndex);
+                        MessageBox.Show("Guest with account number: " + guestToDelete.GuestAccountNumber + " deleted",
+                            "Guest Record Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    }
+                    catch(Exception exception)
+                    {
+
+                    }
+                }
+                else
+                {
+                    // do nothing
+                }
+            }
         }
     }
 }

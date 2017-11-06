@@ -27,6 +27,34 @@ namespace RestEasyBooking.DatabaseLayer
         protected const string tableBooking = "Booking";
         protected const string sqlLocalBooking = "SELECT * FROM Booking";
 
+        #region Properties
+
+        public string TableGuest
+        {
+            get { return tableGuest; }
+        }
+
+        public string TableGuestAccount
+        {
+            get { return tableGuestAccount; }
+        }
+
+        public string TableBooking
+        {
+            get { return tableBooking; }
+        }
+
+        public string TableReferenceNumber
+        {
+            get { return tableRefNum; }
+        }
+
+        public DataSet DataSet
+        {
+            get { return dsMain; }
+        }
+        #endregion
+
         protected ColumnAttributes columnAttributes;
 
         protected string aSQLstring;  // to be initialised later

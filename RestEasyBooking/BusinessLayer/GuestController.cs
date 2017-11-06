@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +15,7 @@ namespace RestEasyBooking.BusinessLayer
     {
         private Collection<Guest> allGuests;
         GuestDB guestDB;
+        Random random;
 
         #region Properties
         public Collection<Guest> AllGuests
@@ -25,6 +28,7 @@ namespace RestEasyBooking.BusinessLayer
         {
             guestDB = new GuestDB();
             allGuests = guestDB.AllGuests;
+            
         }
 
         #region Database Communication
@@ -58,6 +62,7 @@ namespace RestEasyBooking.BusinessLayer
                 return false;
             }
         }
+        
         #endregion
 
         #region Utility Methods
@@ -93,6 +98,12 @@ namespace RestEasyBooking.BusinessLayer
             }
             if (found) return counter;
             else return -1;
+        }
+
+        public int CreateID()
+        {
+            random = new Random();
+            return random.Next(1, 9999);
         }
         #endregion
     }
