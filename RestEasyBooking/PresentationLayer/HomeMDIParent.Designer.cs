@@ -75,7 +75,9 @@
             this.viewListToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.guestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addNewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.listViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.guestListViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.paymentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.makePaymentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.newToolStripButton = new System.Windows.Forms.ToolStripButton();
             this.openToolStripButton = new System.Windows.Forms.ToolStripButton();
@@ -88,8 +90,6 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.paymentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.makePaymentToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.toolStrip.SuspendLayout();
             this.statusStrip.SuspendLayout();
@@ -328,7 +328,7 @@
             this.toolsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.optionsToolStripMenuItem});
             this.toolsMenu.Name = "toolsMenu";
-            this.toolsMenu.Size = new System.Drawing.Size(48, 20);
+            this.toolsMenu.Size = new System.Drawing.Size(47, 20);
             this.toolsMenu.Text = "&Tools";
             // 
             // optionsToolStripMenuItem
@@ -464,7 +464,7 @@
             // 
             this.guestToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addNewToolStripMenuItem,
-            this.listViewToolStripMenuItem});
+            this.guestListViewToolStripMenuItem});
             this.guestToolStripMenuItem.Name = "guestToolStripMenuItem";
             this.guestToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
             this.guestToolStripMenuItem.Text = "Guest";
@@ -472,15 +472,31 @@
             // addNewToolStripMenuItem
             // 
             this.addNewToolStripMenuItem.Name = "addNewToolStripMenuItem";
-            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
+            this.addNewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.addNewToolStripMenuItem.Text = "Add New";
             this.addNewToolStripMenuItem.Click += new System.EventHandler(this.addNewToolStripMenuItem_Click);
             // 
-            // listViewToolStripMenuItem
+            // guestListViewToolStripMenuItem
             // 
-            this.listViewToolStripMenuItem.Name = "listViewToolStripMenuItem";
-            this.listViewToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
-            this.listViewToolStripMenuItem.Text = "List View";
+            this.guestListViewToolStripMenuItem.Name = "guestListViewToolStripMenuItem";
+            this.guestListViewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.guestListViewToolStripMenuItem.Text = "List View";
+            this.guestListViewToolStripMenuItem.Click += new System.EventHandler(this.guestListViewToolStripMenuItem_Click);
+            // 
+            // paymentToolStripMenuItem
+            // 
+            this.paymentToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.makePaymentToolStripMenuItem});
+            this.paymentToolStripMenuItem.Name = "paymentToolStripMenuItem";
+            this.paymentToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
+            this.paymentToolStripMenuItem.Text = "Payment";
+            // 
+            // makePaymentToolStripMenuItem
+            // 
+            this.makePaymentToolStripMenuItem.Name = "makePaymentToolStripMenuItem";
+            this.makePaymentToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.makePaymentToolStripMenuItem.Text = "Make Payment";
+            this.makePaymentToolStripMenuItem.Click += new System.EventHandler(this.makePaymentToolStripMenuItem_Click);
             // 
             // toolStrip
             // 
@@ -581,21 +597,6 @@
             this.toolStripStatusLabel.Size = new System.Drawing.Size(39, 17);
             this.toolStripStatusLabel.Text = "Status";
             // 
-            // paymentToolStripMenuItem
-            // 
-            this.paymentToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.makePaymentToolStripMenuItem});
-            this.paymentToolStripMenuItem.Name = "paymentToolStripMenuItem";
-            this.paymentToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
-            this.paymentToolStripMenuItem.Text = "Payment";
-            // 
-            // makePaymentToolStripMenuItem
-            // 
-            this.makePaymentToolStripMenuItem.Name = "makePaymentToolStripMenuItem";
-            this.makePaymentToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
-            this.makePaymentToolStripMenuItem.Text = "Make Payment";
-            this.makePaymentToolStripMenuItem.Click += new System.EventHandler(this.makePaymentToolStripMenuItem_Click);
-            // 
             // HomeMDIParent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -678,7 +679,7 @@
         private System.Windows.Forms.ToolStripMenuItem viewListToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem guestToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addNewToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem listViewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem guestListViewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem paymentToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem makePaymentToolStripMenuItem;
     }

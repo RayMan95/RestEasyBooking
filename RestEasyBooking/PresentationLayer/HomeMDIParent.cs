@@ -18,13 +18,16 @@ namespace RestEasyBooking.PresentationLayer
         private BookingForm bookingForm;
         private GuestForm guestForm;
         private StartDateForm startDateForm;
-        private GuestForm employeeListForm;
+        private GuestListForm guestListForm;
         private PaymentForm paymentForm;
-       // private GuestController guestController;
+        private GuestController guestController;
+        private BookingController bookingController;
 
         public HomeMDIParent()
         {
             InitializeComponent();
+            guestController = new GuestController();
+            bookingController = new BookingController();
         }
 
         private void ShowNewForm(object sender, EventArgs e)
@@ -159,6 +162,15 @@ namespace RestEasyBooking.PresentationLayer
             paymentForm = new PaymentForm();
             paymentForm.MdiParent = this;        // Setting the MDI Parent
             paymentForm.StartPosition = FormStartPosition.CenterParent;
+        }
+
+        private void guestListViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            guestListForm = new GuestListForm(guestController);
+            guestListForm.MdiParent = this;
+            guestListForm.StartPosition = FormStartPosition.CenterParent;
+            //guestListForm.setUpGuestListView();
+            guestListForm.Show();
         }
     }
 }

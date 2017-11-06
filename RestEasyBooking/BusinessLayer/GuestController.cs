@@ -14,6 +14,13 @@ namespace RestEasyBooking.BusinessLayer
         private Collection<Guest> allGuests;
         GuestDB guestDB;
 
+        #region Properties
+        public Collection<Guest> AllGuests
+        {
+            get { return allGuests; }
+        }
+        #endregion
+
         public GuestController()
         {
             guestDB = new GuestDB();
