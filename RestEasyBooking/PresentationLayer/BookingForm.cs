@@ -36,7 +36,7 @@ namespace RestEasyBooking.PresentationLayer
         private void selectDate()
         {
             startDateForm = new StartDateForm();
-            startDateForm.MdiParent = this;        // Setting the MDI Parent
+           // startDateForm.Parent = this;        // Setting the MDI Parent
             startDateForm.StartPosition = FormStartPosition.CenterParent;
         }
 

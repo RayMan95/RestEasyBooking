@@ -28,9 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(StartDateForm));
             this.startdateCalendar = new System.Windows.Forms.MonthCalendar();
             this.label1 = new System.Windows.Forms.Label();
             this.numberofroomslabel = new System.Windows.Forms.Label();
+            this.confirmbutton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // startdateCalendar
@@ -54,16 +56,29 @@
             // numberofroomslabel
             // 
             this.numberofroomslabel.AutoSize = true;
+            this.numberofroomslabel.Font = new System.Drawing.Font("Arial", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.numberofroomslabel.Location = new System.Drawing.Point(253, 236);
             this.numberofroomslabel.Name = "numberofroomslabel";
-            this.numberofroomslabel.Size = new System.Drawing.Size(0, 13);
+            this.numberofroomslabel.Size = new System.Drawing.Size(0, 18);
             this.numberofroomslabel.TabIndex = 3;
+            // 
+            // confirmbutton
+            // 
+            this.confirmbutton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("confirmbutton.BackgroundImage")));
+            this.confirmbutton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.confirmbutton.Location = new System.Drawing.Point(178, 286);
+            this.confirmbutton.Name = "confirmbutton";
+            this.confirmbutton.Size = new System.Drawing.Size(104, 55);
+            this.confirmbutton.TabIndex = 4;
+            this.confirmbutton.UseVisualStyleBackColor = true;
+            this.confirmbutton.Click += new System.EventHandler(this.confirmbutton_Click);
             // 
             // StartDateForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(623, 347);
+            this.ClientSize = new System.Drawing.Size(470, 353);
+            this.Controls.Add(this.confirmbutton);
             this.Controls.Add(this.numberofroomslabel);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.startdateCalendar);
@@ -80,5 +95,6 @@
         private System.Windows.Forms.MonthCalendar startdateCalendar;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label numberofroomslabel;
+        private System.Windows.Forms.Button confirmbutton;
     }
 }

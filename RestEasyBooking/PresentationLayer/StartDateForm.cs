@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestEasyBooking.BusinessLayer;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,12 @@ namespace RestEasyBooking.PresentationLayer
 {
     public partial class StartDateForm : Form
     {
+
+        private RoomController roomController;
         public StartDateForm()
         {
             InitializeComponent();
+            roomController = new RoomController();
         }
 
         private void StartDateForm_Load(object sender, EventArgs e)
@@ -24,7 +28,13 @@ namespace RestEasyBooking.PresentationLayer
 
         private void startdateCalendar_DateChanged(object sender, DateRangeEventArgs e)
         {
+            
+            numberofroomslabel.Text =""+ roomController.RoomsAvailableThroughout(startdateCalendar.SelectionRange.Start, startdateCalendar.SelectionRange.Start).Count;
+        }
 
+        private void confirmbutton_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
