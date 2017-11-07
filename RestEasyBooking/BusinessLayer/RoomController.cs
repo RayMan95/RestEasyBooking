@@ -9,6 +9,7 @@ using RestEasyBooking.DatabaseLayer;
 // typedefs for convenience
 using DatesTuple = System.Tuple<System.DateTime, System.DateTime>;
 using RoomDatesTuple = System.Tuple<int, System.Collections.ObjectModel.Collection<System.Tuple<System.DateTime, System.DateTime>>>;
+using System.Windows.Forms;
 
 namespace RestEasyBooking.BusinessLayer
 {
@@ -40,11 +41,12 @@ namespace RestEasyBooking.BusinessLayer
             return roomsAvailable;
         }
 
-        public bool BookRoom(int Id, DateTime startDate, DateTime endDate)
+
+        public bool BookRoom(int roomId, DateTime startDate, DateTime endDate)
         {
             // TODO validation
-            if (allRooms[Id].Occupied(startDate, endDate)) return false;
-            allRooms[Id].Book(startDate, endDate);
+            if (allRooms[roomId].Occupied(startDate, endDate)) return false;
+            allRooms[roomId].Book(startDate, endDate);
             return true;
         }
 
@@ -63,9 +65,11 @@ namespace RestEasyBooking.BusinessLayer
         public int GetCost(DateTime startDate, DateTime endDate)
         {
             int cost = 0;
-            for(; startDate.Day < endDate.Day; startDate.AddDays(1))
+            for(; startDate.Day <= endDate.Day; startDate = startDate.AddDays(1))
             {
                 cost += GetPrice(startDate);
+                
+                MessageBox.Show("To be submitted "+ startDate.Day);
             }
 
             return cost;

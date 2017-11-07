@@ -121,6 +121,10 @@ namespace RestEasyBooking.PresentationLayer
             {
                 CreateNewBookingForm();
             }
+            if (bookingForm.BookingFormClosed)
+            {
+                CreateNewBookingForm();
+            }
             bookingForm.Show();
 
         }
@@ -138,6 +142,10 @@ namespace RestEasyBooking.PresentationLayer
             {
                 CreateNewGuestForm();
             }
+            if (guestForm.guestFormClosed)
+            {
+                CreateNewGuestForm();
+            }
             guestForm.Show();
         }
         private void CreateNewGuestForm()
@@ -150,6 +158,10 @@ namespace RestEasyBooking.PresentationLayer
         private void makePaymentToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if(paymentForm == null)
+            {
+                MakePaymentForm();
+            }
+            if (paymentForm.paymentFormClosed)
             {
                 MakePaymentForm();
             }

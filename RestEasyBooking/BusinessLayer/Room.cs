@@ -36,7 +36,7 @@ namespace RestEasyBooking.BusinessLayer
             while (startDate.Day < endDate.Day)
             {
                 bookedDays.Add(startDate);
-                startDate.AddDays(1);
+                startDate =startDate.AddDays(1);
             }
         }
 
